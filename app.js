@@ -167,6 +167,164 @@ function setupStatCounters() {
   observer.observe(statsEl);
 }
 
+// ─── CAROUSEL DATA ──────────────────────
+/*
+  As imagens usam Unsplash (tema futebol / estádio / torcida).
+  Substitua as URLs por fotos reais do Corinthians quando quiser.
+*/
+const carouselData = [
+  {
+    img: "https://images.unsplash.com/photo-1521731978332-9e9e714bdd20?w=1200&q=80",
+    year: "2000",
+    title: "Campeão Mundial",
+    caption: "No Maracanã lotado, o Corinthians vence o Manchester United e conquista o primeiro Mundial de Clubes da FIFA."
+  },
+  {
+    img: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1200&q=80",
+    year: "2012",
+    title: "Libertadores da América",
+    caption: "Paolo Guerrero e Emerson Sheik são os heróis da conquista inédita da Libertadores contra o Boca Juniors."
+  },
+  {
+    img: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&q=80",
+    year: "2012",
+    title: "Bi-campeão Mundial",
+    caption: "Em Yokohama, Cássio defende o pênalti e o Corinthians derrota o Chelsea para ser bicampeão do mundo."
+  },
+  {
+    img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&q=80",
+    year: "1977",
+    title: "Democracia Corinthiana",
+    caption: "Sócrates, Wladimir e Casagrande lideram o movimento que revolucionou o futebol brasileiro e o mundo do esporte."
+  },
+  {
+    img: "https://images.unsplash.com/photo-1459865264687-595d652de67e?w=1200&q=80",
+    year: "2014",
+    title: "Arena Corinthians",
+    caption: "A Neo Química Arena abre suas portas e sedia a abertura da Copa do Mundo. O novo lar da Fiel Torcida."
+  },
+  {
+    img: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200&q=80",
+    year: "1990",
+    title: "Título Brasileiro",
+    caption: "Após anos de espera, o Corinthians conquista o Campeonato Brasileiro e o povo corinthiano vai às ruas celebrar."
+  },
+  {
+    img: "https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=1200&q=80",
+    year: "2009",
+    title: "Fenômeno na Fiel",
+    caption: "Ronaldo Fenômeno veste a camisa do Corinthians e lidera o time de volta à Série A, unindo gerações de torcedores."
+  },
+];
+
+// ─── CAROUSEL RENDERING ─────────────────
+
+function renderCarousel() {
+  const track = document.getElementById('carouselTrack');
+  const dotsContainer = document.getElementById('carouselDots');
+  let current = 0;
+  let startX = 0;
+  let isDragging = false;
+  let autoplayTimer;
+
+  // Renderiza slides
+  carouselData.forEach((item, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'carousel__slide';
+    slide.setAttribute('aria-hidden', i !== 0);
+    slide.innerHTML = `
+      <div class="carousel__img-wrap">
+        <img src="${item.img}" alt="${item.title}" loading="lazy" draggable="false" />
+        <div class="carousel__overlay"></div>
+      </div>
+      <div class="carousel__caption">
+        <span class="carousel__year">${item.year}</span>
+        <h3 class="carousel__title">${item.title}</h3>
+        <p class="carousel__text">${item.caption}</p>
+      </div>
+    `;
+    track.appendChild(slide);
+
+    // Dot
+    const dot = document.createElement('button');
+    dot.className = 'carousel__dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Slide ${i + 1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  const slides = track.querySelectorAll('.carousel__slide');
+  const dots = dotsContainer.querySelectorAll('.carousel__dot');
+  const total = slides.length;
+
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    slides[current].setAttribute('aria-hidden', true);
+    dots[current].classList.remove('active');
+
+    current = (index + total) % total;
+
+    slides[current].classList.add('active');
+    slides[current].setAttribute('aria-hidden', false);
+    dots[current].classList.add('active');
+
+    track.style.transform = `translateX(-${current * 100}%)`;
+    resetAutoplay();
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  // Inicia no slide 0
+  goTo(0);
+
+  // Botões
+  document.getElementById('carouselNext').addEventListener('click', next);
+  document.getElementById('carouselPrev').addEventListener('click', prev);
+
+  // Teclado
+  document.getElementById('carousel').addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft')  prev();
+  });
+
+  // Swipe / drag (touch e mouse)
+  track.addEventListener('touchstart',  e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',    e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+  });
+  track.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; });
+  track.addEventListener('mouseup',    e => {
+    if (!isDragging) return;
+    isDragging = false;
+    const diff = startX - e.clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+  });
+  track.addEventListener('mouseleave', () => { isDragging = false; });
+
+  // Autoplay
+  function startAutoplay() {
+    autoplayTimer = setInterval(next, 5000);
+  }
+  function resetAutoplay() {
+    clearInterval(autoplayTimer);
+    startAutoplay();
+  }
+
+  // Pausa ao hover/foco
+  const section = document.getElementById('carousel');
+  section.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+  section.addEventListener('mouseleave', startAutoplay);
+  section.addEventListener('focusin',    () => clearInterval(autoplayTimer));
+  section.addEventListener('focusout',   startAutoplay);
+
+  // Respeita prefers-reduced-motion
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    startAutoplay();
+  }
+}
+
 // ─── SCROLL TO TIMELINE ─────────────────
 
 function scrollToTimeline() {
@@ -178,6 +336,7 @@ function scrollToTimeline() {
 document.addEventListener('DOMContentLoaded', () => {
   renderTimeline();
   renderTitles();
+  renderCarousel();
   setupObserver();
   setupStatCounters();
 });
