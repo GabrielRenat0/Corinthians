@@ -628,12 +628,7 @@ blockquote em {
   display: flex;
   transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
-  cursor: grab;
   user-select: none;
-}
-
-.carousel__track:active {
-  cursor: grabbing;
 }
 
 /* ── Slides ── */
@@ -823,7 +818,3 @@ blockquote em {
     transform: none;
   }
 }
-
-/* ==============================
- teste
-============================== */

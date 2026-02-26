@@ -169,48 +169,49 @@ function setupStatCounters() {
 
 // ─── CAROUSEL DATA ──────────────────────
 /*
-  As imagens usam Unsplash (tema futebol / estádio / torcida).
+  Imagens via picsum.photos — serviço confiável sem restrição de hotlink.
   Substitua as URLs por fotos reais do Corinthians quando quiser.
+  Cada ID do picsum é fixo, garantindo sempre a mesma foto.
 */
 const carouselData = [
   {
-    img: "https://images.unsplash.com/photo-1521731978332-9e9e714bdd20?w=1200&q=80",
+    img: "https://picsum.photos/id/1076/1200/600",
     year: "2000",
     title: "Campeão Mundial",
     caption: "No Maracanã lotado, o Corinthians vence o Manchester United e conquista o primeiro Mundial de Clubes da FIFA."
   },
   {
-    img: "https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=1200&q=80",
+    img: "https://picsum.photos/id/1067/1200/600",
     year: "2012",
     title: "Libertadores da América",
     caption: "Paolo Guerrero e Emerson Sheik são os heróis da conquista inédita da Libertadores contra o Boca Juniors."
   },
   {
-    img: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&q=80",
+    img: "https://picsum.photos/id/1040/1200/600",
     year: "2012",
     title: "Bi-campeão Mundial",
     caption: "Em Yokohama, Cássio defende o pênalti e o Corinthians derrota o Chelsea para ser bicampeão do mundo."
   },
   {
-    img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&q=80",
+    img: "https://picsum.photos/id/1015/1200/600",
     year: "1977",
     title: "Democracia Corinthiana",
     caption: "Sócrates, Wladimir e Casagrande lideram o movimento que revolucionou o futebol brasileiro e o mundo do esporte."
   },
   {
-    img: "https://images.unsplash.com/photo-1459865264687-595d652de67e?w=1200&q=80",
+    img: "https://picsum.photos/id/1031/1200/600",
     year: "2014",
     title: "Arena Corinthians",
     caption: "A Neo Química Arena abre suas portas e sedia a abertura da Copa do Mundo. O novo lar da Fiel Torcida."
   },
   {
-    img: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200&q=80",
+    img: "https://picsum.photos/id/1018/1200/600",
     year: "1990",
     title: "Título Brasileiro",
     caption: "Após anos de espera, o Corinthians conquista o Campeonato Brasileiro e o povo corinthiano vai às ruas celebrar."
   },
   {
-    img: "https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=1200&q=80",
+    img: "https://picsum.photos/id/1057/1200/600",
     year: "2009",
     title: "Fenômeno na Fiel",
     caption: "Ronaldo Fenômeno veste a camisa do Corinthians e lidera o time de volta à Série A, unindo gerações de torcedores."
@@ -224,7 +225,6 @@ function renderCarousel() {
   const dotsContainer = document.getElementById('carouselDots');
   let current = 0;
   let startX = 0;
-  let isDragging = false;
   let autoplayTimer;
 
   // Renderiza slides
@@ -278,46 +278,33 @@ function renderCarousel() {
   // Inicia no slide 0
   goTo(0);
 
-  // Botões
+  // Botões de clique
   document.getElementById('carouselNext').addEventListener('click', next);
   document.getElementById('carouselPrev').addEventListener('click', prev);
 
-  // Teclado
+  // Teclado (acessibilidade)
   document.getElementById('carousel').addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') next();
     if (e.key === 'ArrowLeft')  prev();
   });
 
-  // Swipe / drag (touch e mouse)
-  track.addEventListener('touchstart',  e => { startX = e.touches[0].clientX; }, { passive: true });
-  track.addEventListener('touchend',    e => {
+  // Swipe por toque (somente mobile — sem drag de mouse)
+  track.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+  track.addEventListener('touchend', e => {
     const diff = startX - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
   });
-  track.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; });
-  track.addEventListener('mouseup',    e => {
-    if (!isDragging) return;
-    isDragging = false;
-    const diff = startX - e.clientX;
-    if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
-  });
-  track.addEventListener('mouseleave', () => { isDragging = false; });
 
-  // Autoplay
+  // Autoplay a cada 10 segundos — sem pausa ao hover
   function startAutoplay() {
-    autoplayTimer = setInterval(next, 5000);
+    autoplayTimer = setInterval(next, 10000);
   }
   function resetAutoplay() {
     clearInterval(autoplayTimer);
     startAutoplay();
   }
-
-  // Pausa ao hover/foco
-  const section = document.getElementById('carousel');
-  section.addEventListener('mouseenter', () => clearInterval(autoplayTimer));
-  section.addEventListener('mouseleave', startAutoplay);
-  section.addEventListener('focusin',    () => clearInterval(autoplayTimer));
-  section.addEventListener('focusout',   startAutoplay);
 
   // Respeita prefers-reduced-motion
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -340,8 +327,3 @@ document.addEventListener('DOMContentLoaded', () => {
   setupObserver();
   setupStatCounters();
 });
-
-
-/* ==============================
-teste
-============================== */
