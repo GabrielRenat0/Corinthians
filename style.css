@@ -602,6 +602,199 @@ blockquote em {
 }
 
 /* ==============================
+   CAROUSEL
+============================== */
+.carousel-section {
+  background: #0a0a0a;
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.carousel {
+  position: relative;
+  max-width: var(--max-content);
+  margin: 0 auto;
+  overflow: hidden;
+  /* Foco visível para acessibilidade de teclado */
+  outline: none;
+}
+
+.carousel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* ── Track ── */
+.carousel__track {
+  display: flex;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  cursor: grab;
+  user-select: none;
+}
+
+.carousel__track:active {
+  cursor: grabbing;
+}
+
+/* ── Slides ── */
+.carousel__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  position: relative;
+  /* Altura responsiva: maior em desktop, menor em mobile */
+  height: clamp(280px, 55vw, 600px);
+  overflow: hidden;
+}
+
+.carousel__img-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.carousel__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Pequeno zoom no slide ativo */
+  transform: scale(1.06);
+  transition: transform 6s ease;
+  pointer-events: none;
+}
+
+.carousel__slide.active .carousel__img-wrap img {
+  transform: scale(1);
+}
+
+/* Gradiente sobre a imagem para legibilidade da legenda */
+.carousel__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.85) 0%,
+    rgba(0,0,0,0.35) 45%,
+    rgba(0,0,0,0.10) 100%
+  );
+}
+
+/* ── Caption ── */
+.carousel__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 5vw, 4rem);
+  z-index: 2;
+  /* Entra de baixo ao trocar slide */
+  transform: translateY(10px);
+  opacity: 0;
+  transition: transform 0.55s ease 0.15s, opacity 0.55s ease 0.15s;
+}
+
+.carousel__slide.active .carousel__caption {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.carousel__year {
+  font-family: var(--ff-display);
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  letter-spacing: 5px;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.carousel__title {
+  font-family: var(--ff-display);
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  letter-spacing: 2px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.carousel__text {
+  font-family: var(--ff-body);
+  font-size: clamp(0.88rem, 2vw, 1.05rem);
+  color: rgba(245,242,237,0.75);
+  font-style: italic;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* ── Botões Prev / Next ── */
+.carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(10,10,10,0.55);
+  border: 1px solid rgba(200,169,110,0.3);
+  color: var(--accent);
+  font-size: 1.3rem;
+  /* Alvo de toque 48px */
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(6px);
+}
+
+.carousel__btn--prev { left: clamp(0.5rem, 2vw, 1.5rem); }
+.carousel__btn--next { right: clamp(0.5rem, 2vw, 1.5rem); }
+
+.carousel__btn:hover {
+  background: rgba(200,169,110,0.2);
+  border-color: var(--accent);
+}
+
+.carousel__btn:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+/* Esconde botões em mobile muito pequeno (swipe é suficiente) */
+@media (max-width: 400px) {
+  .carousel__btn { display: none; }
+}
+
+/* ── Dots ── */
+.carousel__dots {
+  position: absolute;
+  bottom: clamp(0.8rem, 2vw, 1.2rem);
+  right: clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.carousel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(245,242,237,0.35);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, width 0.3s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
+}
+
+.carousel__dot.active {
+  background: var(--accent);
+  /* Dot ativo vira uma pílula horizontal */
+  width: 22px;
+  border-radius: 4px;
+}
+
+/* ==============================
    ANIMATIONS
 ============================== */
 @keyframes fadeInUp {
