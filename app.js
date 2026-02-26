@@ -327,4 +327,263 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCarousel();
   setupObserver();
   setupStatCounters();
+  setupLineupPanel();
 });
+
+// ─── LINEUP DATA ─────────────────────────
+const lineupData = {
+  1990: {
+    title: "Campeão Brasileiro 1990",
+    coach: "Técnico: Nelsinho Baptista",
+    formation: "4-4-2",
+    context: "O título que encerrou um jejum de 10 anos no Brasileirão.",
+    rows: [
+      ["Ronaldo Giovanelli"],
+      ["Betinho","Zé Maria","Índio","Gilson"],
+      ["Tupãzinho","Neto","Amarildo","Edu Marangon"],
+      ["Viola","Müller"]
+    ],
+    bench: ["Zé Carlos","Mauro Silva","Marcelinho","Luisinho","Rinaldo"]
+  },
+  1995: {
+    title: "Copa do Brasil 1995",
+    coach: "Técnico: Cuca",
+    formation: "4-3-3",
+    context: "Primeira Copa do Brasil da história do clube.",
+    rows: [
+      ["Ronaldo Giovanelli"],
+      ["Cléber","Zé Maria","Índio","Roberto Carlos"],
+      ["Djalminha","Neto","Souza"],
+      ["Marcelinho Carioca","Viola","Palhinha"]
+    ],
+    bench: ["Guilherme","Betinho","Rinaldo","Luisinho","Edu"]
+  },
+  1998: {
+    title: "Campeão Brasileiro 1998",
+    coach: "Técnico: Oswaldo de Oliveira",
+    formation: "4-4-2",
+    context: "Bicampeonato em sequência com Marcelinho Carioca em grande fase.",
+    rows: [
+      ["Dida"],
+      ["Rogério","Gamarra","Antônio Carlos","Silvinho"],
+      ["Marcelinho Carioca","Souza","Rincón","Dinei"],
+      ["Edilson","Lúcio Flávio"]
+    ],
+    bench: ["Guilherme","Anderson Pico","Rinaldo","Paulo Sérgio","Vampeta"]
+  },
+  1999: {
+    title: "Tricampeão Brasileiro 1999",
+    coach: "Técnico: Vanderlei Luxemburgo",
+    formation: "4-3-3",
+    context: "Tri consecutivo, com Vampeta e Edilson no auge.",
+    rows: [
+      ["Dida"],
+      ["Rogério","Gamarra","Antônio Carlos","Silvinho"],
+      ["Vampeta","Rincón","Warley"],
+      ["Marcelinho Carioca","Edilson","Luizão"]
+    ],
+    bench: ["Guilherme","Anderson Pico","Souza","Paulo Sérgio","Lúcio Flávio"]
+  },
+  2000: {
+    title: "Campeão Mundial 2000",
+    coach: "Técnico: Oswaldo de Oliveira",
+    formation: "4-4-2",
+    context: "Venceu o primeiro Mundial de Clubes da FIFA, derrotando o Manchester United.",
+    rows: [
+      ["Dida"],
+      ["Rogério","Gamarra","Antônio Carlos","Silvinho"],
+      ["Vampeta","Rincón","Cocâo","Warley"],
+      ["Edilson","Luizão"]
+    ],
+    bench: ["Guilherme","Anderson Pico","Dinei","Paulo Sérgio","Marcelinho"]
+  },
+  2002: {
+    title: "Copa do Brasil 2002",
+    coach: "Técnico: Paulo César Carpegiani",
+    formation: "4-4-2",
+    context: "Segunda Copa do Brasil com Tevita e Fabinho Capixaba em destaque.",
+    rows: [
+      ["Marcos"],
+      ["Rogério","Antônio Carlos","Anderson Polga","Fábio Luciano"],
+      ["Capixaba","Souza","Tevita","Ricardinho"],
+      ["Deivid","Gil"]
+    ],
+    bench: ["Guilherme","Betão","Renato","Alessandro","Lúcio Flávio"]
+  },
+  2005: {
+    title: "Campeão Brasileiro 2005",
+    coach: "Técnico: Tite",
+    formation: "4-2-3-1",
+    context: "Tite inicia sua era vitoriosa no clube, dominando o Brasileirão.",
+    rows: [
+      ["Fábio Costa"],
+      ["Alessandro","Betão","Gustavo","Fábio Luciano"],
+      ["Souza","Carlos Alberto"],
+      ["Roger","Tevita","Ricardinho"],
+      ["Carlos Tevez"]
+    ],
+    bench: ["Guilherme","Anderson Polga","Edu Dracena","Wendell","Gil"]
+  },
+  2009: {
+    title: "Retorno à Série A — 2009",
+    coach: "Técnico: Mano Menezes",
+    formation: "4-2-3-1",
+    context: "Ronaldo Fenômeno lidera o acesso épico de volta à elite.",
+    rows: [
+      ["Júlio César"],
+      ["Alessandro","Chicão","Leandro Castán","Fábio Santos"],
+      ["Paulinho","Souza"],
+      ["Jorge Henrique","Dentinho","Liedson"],
+      ["Ronaldo"]
+    ],
+    bench: ["Felipe","Edu Dracena","Émerson","Elias","Willian"]
+  },
+  2011: {
+    title: "Campeão Brasileiro 2011",
+    coach: "Técnico: Tite",
+    formation: "4-2-3-1",
+    context: "Hexa Brasileiro com Tite, Paulinho e Romarinho brilhando.",
+    rows: [
+      ["Cássio"],
+      ["Alessandro","Chicão","Leandro Castán","Fábio Santos"],
+      ["Ralf","Paulinho"],
+      ["Jorge Henrique","Willian","Romarinho"],
+      ["Liedson"]
+    ],
+    bench: ["Felipe","Edu Dracena","Élton","Émerson","Dentinho"]
+  },
+  2012: {
+    title: "Campeão da Libertadores e Mundial 2012",
+    coach: "Técnico: Tite",
+    formation: "4-2-3-1",
+    context: "O ano mais glorioso da história: Libertadores e Mundial no mesmo ano.",
+    rows: [
+      ["Cássio"],
+      ["Alessandro","Chicão","Leandro Castán","Fábio Santos"],
+      ["Ralf","Paulinho"],
+      ["Jorge Henrique","Willian","Emerson Sheik"],
+      ["Paolo Guerrero"]
+    ],
+    bench: ["Felipe","Edu Dracena","Élton","Romarinho","Danilo"]
+  },
+  2015: {
+    title: "Campeão Brasileiro 2015",
+    coach: "Técnico: Tite",
+    formation: "4-1-4-1",
+    context: "Heptacampeonato Brasileiro com Renato Augusto e Jadson em grande fase.",
+    rows: [
+      ["Cássio"],
+      ["Fagner","Gil","Balbuena","Fábio Santos"],
+      ["Ralf"],
+      ["Renato Augusto","Elias","Jadson","Malcom"],
+      ["Lucca"]
+    ],
+    bench: ["Walter","Edu Dracena","Léo Príncipe","Guilherme Arana","Bruno Henrique"]
+  },
+  2017: {
+    title: "Campeão Brasileiro 2017",
+    coach: "Técnico: Fábio Carille",
+    formation: "4-1-4-1",
+    context: "Octacampeonato com Jadson e Romero brilhando sob o comando de Carille.",
+    rows: [
+      ["Cássio"],
+      ["Fagner","Balbuena","Pablo","Guilherme Arana"],
+      ["Gabriel"],
+      ["Camacho","Rodriguinho","Jadson","Clayson"],
+      ["Jô"]
+    ],
+    bench: ["Walter","Léo Príncipe","Maycon","Romero","Marlone"]
+  },
+  2023: {
+    title: "Geração 2023",
+    coach: "Técnico: Mano Menezes",
+    formation: "4-2-3-1",
+    context: "Jovens talentos como Yuri Alberto e Mateus Vital assumem protagonismo.",
+    rows: [
+      ["Cássio"],
+      ["Fagner","Gil","Murillo","Fábio Santos"],
+      ["Fausto Vera","Renato Augusto"],
+      ["Giuliano","Mateus Vital","Romero"],
+      ["Yuri Alberto"]
+    ],
+    bench: ["Carlos Miguel","Rafael Ramos","Adson","Du Queiroz","Wesley"]
+  }
+};
+
+// ─── LINEUP PANEL ────────────────────────
+function setupLineupPanel() {
+  const fab      = document.getElementById('lineupFab');
+  const panel    = document.getElementById('lineupPanel');
+  const overlay  = document.getElementById('lineupOverlay');
+  const closeBtn = document.getElementById('lineupClose');
+  const yearsEl  = document.getElementById('lineupYears');
+  const metaEl   = document.getElementById('lineupMeta');
+  const fieldEl  = document.getElementById('lineupField');
+  const benchEl  = document.getElementById('lineupBench');
+
+  const years = Object.keys(lineupData).map(Number).sort((a,b) => a-b);
+  let activeYear = 2012;
+
+  years.forEach(y => {
+    const btn = document.createElement('button');
+    btn.className = 'lineup-year-btn' + (y === activeYear ? ' active' : '');
+    btn.textContent = y;
+    btn.addEventListener('click', () => selectYear(y));
+    yearsEl.appendChild(btn);
+  });
+
+  function selectYear(year) {
+    activeYear = year;
+    const data = lineupData[year];
+    yearsEl.querySelectorAll('.lineup-year-btn').forEach(b => {
+      b.classList.toggle('active', parseInt(b.textContent) === year);
+    });
+    const activeBtn = yearsEl.querySelector('.lineup-year-btn.active');
+    if (activeBtn) activeBtn.scrollIntoView({ inline:'center', behavior:'smooth', block:'nearest' });
+
+    metaEl.innerHTML = `
+      <h3 class="lp-title">${data.title}</h3>
+      <p class="lp-coach">${data.coach} &nbsp;·&nbsp; <span>${data.formation}</span></p>
+      <p class="lp-context">${data.context}</p>
+    `;
+
+    fieldEl.innerHTML = '';
+    [...data.rows].reverse().forEach(row => {
+      const rowEl = document.createElement('div');
+      rowEl.className = 'lp-row';
+      row.forEach(name => {
+        const p = document.createElement('div');
+        p.className = 'lp-player';
+        const initials = name.split(' ').map(w=>w[0]).slice(0,2).join('');
+        p.innerHTML = `<div class="lp-player__circle">${initials}</div><span class="lp-player__name">${name}</span>`;
+        rowEl.appendChild(p);
+      });
+      fieldEl.appendChild(rowEl);
+    });
+
+    benchEl.innerHTML = `
+      <p class="lp-bench-title">Banco de reservas</p>
+      <div class="lp-bench-list">${data.bench.map(n=>`<span class="lp-bench-player">${n}</span>`).join('')}</div>
+    `;
+  }
+
+  selectYear(activeYear);
+
+  function openPanel() {
+    panel.classList.add('open');
+    overlay.classList.add('open');
+    panel.setAttribute('aria-hidden', false);
+    document.body.style.overflow = 'hidden';
+  }
+  function closePanel() {
+    panel.classList.remove('open');
+    overlay.classList.remove('open');
+    panel.setAttribute('aria-hidden', true);
+    document.body.style.overflow = '';
+  }
+
+  fab.addEventListener('click', openPanel);
+  closeBtn.addEventListener('click', closePanel);
+  overlay.addEventListener('click', closePanel);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+}

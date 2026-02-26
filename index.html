@@ -101,8 +101,32 @@
     <p>© 2025 — Página histórica não-oficial sobre o Sport Club Corinthians Paulista</p>
   </footer>
 
+  <!-- BOTÃO FLUTUANTE ESCALAÇÕES -->
+  <button class="lineup-fab" id="lineupFab" aria-label="Ver escalações históricas">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+    <span>Escalações</span>
+  </button>
+
+  <!-- OVERLAY -->
+  <div class="lineup-overlay" id="lineupOverlay"></div>
+
+  <!-- PAINEL LATERAL -->
+  <aside class="lineup-panel" id="lineupPanel" aria-hidden="true">
+    <div class="lineup-panel__header">
+      <div>
+        <p class="lineup-panel__eyebrow">Sport Club Corinthians Paulista</p>
+        <h2 class="lineup-panel__title">Escalações <em>Históricas</em></h2>
+      </div>
+      <button class="lineup-panel__close" id="lineupClose" aria-label="Fechar">✕</button>
+    </div>
+    <div class="lineup-years" id="lineupYears"></div>
+    <div class="lineup-content" id="lineupContent">
+      <div class="lineup-meta" id="lineupMeta"></div>
+      <div class="lineup-field" id="lineupField"></div>
+      <div class="lineup-bench" id="lineupBench"></div>
+    </div>
+  </aside>
+
   <script src="app.js"></script>
 </body>
 </html>
-
-<!-- teste>
