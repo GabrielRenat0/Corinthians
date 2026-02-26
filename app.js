@@ -507,6 +507,19 @@ const lineupData = {
       ["Yuri Alberto"]
     ],
     bench: ["Carlos Miguel","Rafael Ramos","Adson","Du Queiroz","Wesley"]
+  },
+  2025: {
+    title: "Tetracampeão Copa do Brasil 2025",
+    coach: "Técnico: Ramón Díaz / Dorival Júnior",
+    formation: "4-4-2",
+    context: "Venceu o Vasco por 2 a 1 no Maracanã (21/12/2025). Yuri Alberto e Memphis marcaram. Tetracampeonato da Copa do Brasil — 1995, 2002, 2009 e 2025.",
+    rows: [
+      ["Hugo Souza"],
+      ["Matheuzinho","André Ramalho","Gustavo Henrique","Matheus Bidu"],
+      ["José Martínez","Raniele","Maycon","Breno Bidon"],
+      ["Memphis Depay","Yuri Alberto"]
+    ],
+    bench: ["Matheus Donelli","Fagner","Cacá","Hugo","Carrillo","Rodrigo Garro","Pedro Raul"]
   }
 };
 
