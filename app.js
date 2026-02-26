@@ -340,3 +340,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupObserver();
   setupStatCounters();
 });
+
+
+/* ==============================
+teste
+============================== */
