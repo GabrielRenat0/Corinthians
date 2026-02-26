@@ -101,11 +101,41 @@
     <p>© 2025 — Página histórica não-oficial sobre o Sport Club Corinthians Paulista</p>
   </footer>
 
-  <!-- BOTÃO FLUTUANTE ESCALAÇÕES -->
-  <button class="lineup-fab" id="lineupFab" aria-label="Ver escalações históricas">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
-    <span>Escalações</span>
-  </button>
+  <!-- FAB MENU -->
+  <div class="fab-menu" id="fabMenu">
+    <div class="fab-menu__options" id="fabOptions">
+      <button class="fab-option" id="lineupFab" aria-label="Ver escalações históricas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+        <span>Escalações</span>
+      </button>
+      <button class="fab-option" id="statsFab" aria-label="Ver estatísticas históricas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span>Estatísticas</span>
+      </button>
+    </div>
+    <button class="fab-toggle" id="fabToggle" aria-label="Abrir menu">
+      <svg class="fab-toggle__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+      <span>Menu</span>
+    </button>
+  </div>
+
+  <!-- PAINEL ESTATÍSTICAS -->
+  <aside class="stats-panel" id="statsPanel" aria-hidden="true">
+    <div class="lineup-panel__header">
+      <div>
+        <p class="lineup-panel__eyebrow">Sport Club Corinthians Paulista</p>
+        <h2 class="lineup-panel__title">Estatísticas <em>Históricas</em></h2>
+      </div>
+      <button class="lineup-panel__close" id="statsClose" aria-label="Fechar">✕</button>
+    </div>
+    <div class="stats-panel__tabs" id="statsTabs">
+      <button class="stats-tab active" data-tab="scorers">⚽ Artilheiros</button>
+      <button class="stats-tab" data-tab="assists">🎯 Assistências</button>
+      <button class="stats-tab" data-tab="games">👕 Jogos</button>
+      <button class="stats-tab" data-tab="saves">🧤 Pênaltis</button>
+    </div>
+    <div class="stats-panel__content" id="statsPanelContent"></div>
+  </aside>
 
   <!-- OVERLAY -->
   <div class="lineup-overlay" id="lineupOverlay"></div>
