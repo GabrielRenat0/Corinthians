@@ -321,6 +321,215 @@ function scrollToTimeline() {
 
 // ─── INIT ────────────────────────────────
 
+
+// ─── IDOLS DATA ──────────────────────────
+const idolsData = [
+  {
+    name: "Sócrates",
+    position: "Meia",
+    period: "1978 – 1984",
+    number: "8",
+    games: 297,
+    goals: 172,
+    quote: "Vencer não é o mais importante. O mais importante é ser digno da vitória.",
+    color: "#1a3a1a",
+    initials: "DR",
+    badge: "Democracia Corinthiana"
+  },
+  {
+    name: "Marcelinho Carioca",
+    position: "Meia-atacante",
+    period: "1994 – 2001 · 2006",
+    number: "10",
+    games: 433,
+    goals: 206,
+    quote: "O Corinthians é minha vida. Aqui eu nasci para o futebol.",
+    color: "#1a1a2e",
+    initials: "MC",
+    badge: "Ídolo da Fiel"
+  },
+  {
+    name: "Ronaldo Fenômeno",
+    position: "Centroavante",
+    period: "2009 – 2011",
+    number: "9",
+    games: 69,
+    goals: 35,
+    quote: "Escolhi o Corinthians porque queria ganhar. E ganhamos.",
+    color: "#1f1a00",
+    initials: "R9",
+    badge: "O Fenômeno"
+  },
+  {
+    name: "Cássio",
+    position: "Goleiro",
+    period: "2012 – 2023",
+    number: "12",
+    games: 712,
+    goals: 0,
+    quote: "Esse clube me deu tudo. Dei minha vida por essa camisa.",
+    color: "#1a0a0a",
+    initials: "CA",
+    badge: "Maior Goleiro da História"
+  },
+  {
+    name: "Paolo Guerrero",
+    position: "Centroavante",
+    period: "2012 – 2015",
+    number: "9",
+    games: 174,
+    goals: 100,
+    quote: "No Corinthians aprendi o que é ser campeão de verdade.",
+    color: "#1a0d00",
+    initials: "PG",
+    badge: "Herói da Libertadores"
+  },
+  {
+    name: "Rivellino",
+    position: "Meia",
+    period: "1965 – 1974",
+    number: "10",
+    games: 473,
+    goals: 133,
+    quote: "O Corinthians é o maior clube do mundo. E eu tive a honra de jogar aqui.",
+    color: "#0a1a2a",
+    initials: "RI",
+    badge: "Gênio do Futebol"
+  },
+  {
+    name: "Wladimir",
+    position: "Lateral-esquerdo",
+    period: "1972 – 1985 · 1987",
+    number: "6",
+    games: 806,
+    goals: 23,
+    quote: "Democracia Corinthiana foi a experiência mais bonita que vivi no esporte.",
+    color: "#001a1a",
+    initials: "WL",
+    badge: "Recordista de Jogos"
+  },
+  {
+    name: "Jadson",
+    position: "Meia",
+    period: "2014 – 2022",
+    number: "10",
+    games: 358,
+    goals: 72,
+    quote: "A Fiel me deu amor que não recebi em nenhum outro lugar.",
+    color: "#1a1500",
+    initials: "JD",
+    badge: "Maestro do Timão"
+  }
+];
+
+// ─── IDOLS RENDERING ─────────────────────
+function renderIdols() {
+  const grid = document.getElementById('idolsGrid');
+
+  idolsData.forEach((idol, i) => {
+    const card = document.createElement('div');
+    card.className = 'idol-card';
+    card.style.animationDelay = (i * 0.08) + 's';
+
+    const goalsHTML = idol.goals > 0
+      ? '<div class="idol-stat"><span class="idol-stat__val">' + idol.goals + '</span><span class="idol-stat__lbl">gols</span></div>'
+      : '<div class="idol-stat"><span class="idol-stat__val">32</span><span class="idol-stat__lbl">pênaltis def.</span></div>';
+
+    card.innerHTML =
+      '<div class="idol-card__bg" style="background:' + idol.color + '"></div>' +
+      '<div class="idol-card__number">' + idol.number + '</div>' +
+      '<div class="idol-card__avatar"><span>' + idol.initials + '</span></div>' +
+      '<div class="idol-card__body">' +
+        '<span class="idol-card__badge">' + idol.badge + '</span>' +
+        '<h3 class="idol-card__name">' + idol.name + '</h3>' +
+        '<p class="idol-card__pos">' + idol.position + ' · ' + idol.period + '</p>' +
+        '<div class="idol-card__stats">' +
+          '<div class="idol-stat">' +
+            '<span class="idol-stat__val">' + idol.games + '</span>' +
+            '<span class="idol-stat__lbl">jogos</span>' +
+          '</div>' +
+          goalsHTML +
+        '</div>' +
+        '<blockquote class="idol-card__quote">"' + idol.quote + '"</blockquote>' +
+      '</div>';
+
+    grid.appendChild(card);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.idol-card').forEach(el => observer.observe(el));
+}
+
+// ─── NAVBAR ──────────────────────────────
+function setupNavbar() {
+  const navbar  = document.getElementById('navbar');
+  const burger  = document.getElementById('navBurger');
+  const mobile  = document.getElementById('navMobile');
+  const links   = document.querySelectorAll('.navbar__link, .navbar__mobile-link');
+  let lastY     = 0;
+  let ticking   = false;
+
+  // Scroll: mostra/esconde + classe scrolled
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        // Esconde ao rolar para baixo, mostra ao rolar para cima
+        if (y > lastY && y > 80) {
+          navbar.classList.add('hidden');
+        } else {
+          navbar.classList.remove('hidden');
+        }
+        // Fundo sólido após sair do hero
+        navbar.classList.toggle('scrolled', y > 60);
+        lastY = y;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Burger mobile
+  burger.addEventListener('click', () => {
+    const isOpen = mobile.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+  });
+
+  // Fecha mobile ao clicar em link
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      mobile.classList.remove('open');
+      burger.classList.remove('open');
+    });
+  });
+
+  // Link ativo ao rolar
+  const sections = ['hero','timeline','idols','titles','moments'];
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        document.querySelectorAll('.navbar__link').forEach(l => {
+          l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderTimeline();
   renderTitles();
@@ -330,6 +539,9 @@ document.addEventListener('DOMContentLoaded', () => {
   setupLineupPanel();
   setupStatsPanel();
   setupFabMenu();
+  renderIdols();
+  setupNavbar();
+  setupGlobalEscape();
 });
 
 // ─── LINEUP DATA ─────────────────────────
@@ -600,7 +812,6 @@ function setupLineupPanel() {
   fab.addEventListener('click', openPanel);
   closeBtn.addEventListener('click', closePanel);
   overlay.addEventListener('click', closePanel);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 }
 
 
@@ -749,7 +960,27 @@ function setupStatsPanel() {
 
   fab.addEventListener('click', openPanel);
   closeBtn.addEventListener('click', closePanel);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+}
+
+// ─── GLOBAL ESC HANDLER ──────────────────
+function setupGlobalEscape() {
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const lineupPanel = document.getElementById('lineupPanel');
+    const statsPanel  = document.getElementById('statsPanel');
+    const overlay     = document.getElementById('lineupOverlay');
+    if (lineupPanel.classList.contains('open')) {
+      lineupPanel.classList.remove('open');
+      overlay.classList.remove('open');
+      lineupPanel.setAttribute('aria-hidden', true);
+      document.body.style.overflow = '';
+    } else if (statsPanel.classList.contains('open')) {
+      statsPanel.classList.remove('open');
+      overlay.classList.remove('open');
+      statsPanel.setAttribute('aria-hidden', true);
+      document.body.style.overflow = '';
+    }
+  });
 }
 
 // ─── FAB MENU TOGGLE ─────────────────────

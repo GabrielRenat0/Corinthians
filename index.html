@@ -9,6 +9,31 @@
 </head>
 <body>
 
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar__inner">
+      <span class="navbar__brand">SCCP</span>
+      <div class="navbar__links">
+        <a href="#hero"     class="navbar__link">Início</a>
+        <a href="#timeline" class="navbar__link">História</a>
+        <a href="#idols"    class="navbar__link">Ídolos</a>
+        <a href="#titles"   class="navbar__link">Conquistas</a>
+        <a href="#moments"  class="navbar__link">Momentos</a>
+      </div>
+      <button class="navbar__burger" id="navBurger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div class="navbar__mobile" id="navMobile">
+      <a href="#hero"     class="navbar__mobile-link">Início</a>
+      <a href="#timeline" class="navbar__mobile-link">História</a>
+      <a href="#idols"    class="navbar__mobile-link">Ídolos</a>
+      <a href="#titles"   class="navbar__mobile-link">Conquistas</a>
+      <a href="#moments"  class="navbar__mobile-link">Momentos</a>
+    </div>
+  </nav>
+
   <!-- HERO -->
   <header class="hero" id="hero">
     <div class="hero__grain"></div>
@@ -66,8 +91,18 @@
     <div class="timeline" id="timelineContainer"></div>
   </main>
 
+
+  <!-- IDOLS -->
+  <section class="idols-section" id="idols">
+    <div class="section-header">
+      <h2>Lendas <em>imortais</em></h2>
+      <p>Os que vestiram a camisa e viraram religião.</p>
+    </div>
+    <div class="idols-grid" id="idolsGrid"></div>
+  </section>
+
   <!-- TITLES GRID -->
-  <section class="titles-section">
+  <section class="titles-section" id="titles">
     <div class="section-header">
       <h2>Principais <em>conquistas</em></h2>
     </div>
@@ -75,7 +110,7 @@
   </section>
 
   <!-- CAROUSEL -->
-  <section class="carousel-section">
+  <section class="carousel-section" id="moments">
     <div class="section-header">
       <h2>Grandes <em>momentos</em></h2>
       <p>Cenas que ficaram para sempre na memória da Fiel.</p>

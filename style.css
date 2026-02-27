@@ -1421,3 +1421,347 @@ blockquote em {
   border-radius: 2px;
   transition: width 0.6s ease;
 }
+
+/* ==============================
+   NAVBAR
+============================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 800;
+  transition: transform 0.35s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Esconde ao rolar para baixo */
+.navbar.hidden {
+  transform: translateY(-100%);
+}
+
+/* Fundo sólido após sair do hero */
+.navbar.scrolled {
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 rgba(200,169,110,0.12);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--max-content);
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+.navbar__brand {
+  font-family: var(--ff-display);
+  font-size: 1.3rem;
+  letter-spacing: 6px;
+  color: var(--accent);
+}
+
+.navbar__links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.navbar__link {
+  font-family: var(--ff-display);
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+  color: rgba(245,242,237,0.55);
+  text-decoration: none;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+}
+
+.navbar__link:hover,
+.navbar__link.active {
+  color: var(--white);
+}
+
+.navbar__link.active::after {
+  transform: scaleX(1);
+}
+
+/* Burger (mobile) */
+.navbar__burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  touch-action: manipulation;
+}
+
+.navbar__burger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--accent);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.navbar__burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.navbar__burger.open span:nth-child(2) { opacity: 0; }
+.navbar__burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* Mobile menu */
+.navbar__mobile {
+  display: none;
+  flex-direction: column;
+  background: rgba(10,10,10,0.97);
+  padding: 1rem 2rem 1.5rem;
+  border-top: 1px solid rgba(200,169,110,0.1);
+  gap: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.navbar__mobile.open {
+  max-height: 300px;
+}
+
+.navbar__mobile-link {
+  font-family: var(--ff-display);
+  font-size: 1rem;
+  letter-spacing: 4px;
+  color: rgba(245,242,237,0.6);
+  text-decoration: none;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(200,169,110,0.06);
+  transition: color 0.2s;
+}
+
+.navbar__mobile-link:last-child { border-bottom: none; }
+.navbar__mobile-link:hover { color: var(--accent); }
+
+@media (max-width: 768px) {
+  .navbar__links { display: none; }
+  .navbar__burger { display: flex; }
+  .navbar__mobile { display: flex; }
+}
+
+/* Empurra o hero para baixo do navbar */
+.hero { padding-top: 60px; }
+
+/* ==============================
+   IDOLS SECTION
+============================== */
+.idols-section {
+  background: #080808;
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.idols-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5px;
+  max-width: var(--max-content);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (min-width: 1024px) {
+  .idols-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .idols-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+    gap: 1px;
+  }
+}
+
+/* ── Card ── */
+.idol-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  cursor: default;
+}
+
+.idol-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fundo colorido por ídolo */
+.idol-card__bg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s ease;
+}
+
+.idol-card:hover .idol-card__bg {
+  transform: scale(1.04);
+}
+
+/* Gradiente por cima do fundo */
+.idol-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.95) 0%,
+    rgba(0,0,0,0.6) 40%,
+    rgba(0,0,0,0.15) 100%
+  );
+  z-index: 1;
+}
+
+/* Número de camisa — decorativo grande */
+.idol-card__number {
+  position: absolute;
+  top: -0.2em;
+  right: 0.1em;
+  font-family: var(--ff-display);
+  font-size: clamp(5rem, 14vw, 9rem);
+  color: rgba(200,169,110,0.07);
+  line-height: 1;
+  z-index: 1;
+  pointer-events: none;
+  transition: color 0.4s;
+}
+
+.idol-card:hover .idol-card__number {
+  color: rgba(200,169,110,0.13);
+}
+
+/* Avatar com iniciais */
+.idol-card__avatar {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid rgba(200,169,110,0.5);
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-family: var(--ff-display);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  color: var(--accent);
+}
+
+/* Conteúdo principal */
+.idol-card__body {
+  position: relative;
+  z-index: 2;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.idol-card__badge {
+  display: inline-block;
+  font-family: var(--ff-display);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--accent);
+  border: 1px solid rgba(200,169,110,0.3);
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.idol-card__name {
+  font-family: var(--ff-display);
+  font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+  letter-spacing: 1px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.idol-card__pos {
+  font-family: var(--ff-display);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: rgba(245,242,237,0.45);
+  margin-bottom: 0.75rem;
+}
+
+/* Stats rápidos */
+.idol-card__stats {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 0.9rem;
+}
+
+.idol-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.idol-stat__val {
+  font-family: var(--ff-display);
+  font-size: 1.3rem;
+  color: var(--accent);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.idol-stat__lbl {
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: rgba(245,242,237,0.4);
+  text-transform: uppercase;
+}
+
+/* Frase */
+.idol-card__quote {
+  font-family: var(--ff-body);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: rgba(245,242,237,0.5);
+  line-height: 1.5;
+  border-left: 2px solid rgba(200,169,110,0.3);
+  padding-left: 0.75rem;
+  margin: 0;
+  /* Escondido por padrão, aparece no hover */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.idol-card:hover .idol-card__quote {
+  max-height: 80px;
+  opacity: 1;
+}
+
+@media (hover: none) {
+  /* Em touch, mostra a frase sempre */
+  .idol-card__quote {
+    max-height: 80px;
+    opacity: 1;
+  }
+}
