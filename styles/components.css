@@ -1,0 +1,648 @@
+/* ==============================
+   TIMELINE
+============================== */
+.timeline-section {
+  background: #0d0d0d;
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.timeline {
+  max-width: min(1000px, 90vw);
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 0;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--accent) 10%, var(--accent) 90%, transparent);
+  transform: translateX(-50%);
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  gap: 0;
+  margin-bottom: 3.5rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline-item:nth-child(odd) .item-content {
+  grid-column: 1;
+  text-align: right;
+  padding-right: 2.5rem;
+}
+.timeline-item:nth-child(odd) .item-empty { grid-column: 3; }
+
+.timeline-item:nth-child(even) .item-content {
+  grid-column: 3;
+  text-align: left;
+  padding-left: 2.5rem;
+  order: 2;
+}
+.timeline-item:nth-child(even) .item-empty {
+  grid-column: 1;
+  order: 1;
+}
+
+@media (min-width: 1024px) {
+  .timeline-item { margin-bottom: 5rem; }
+  .timeline-item:nth-child(odd) .item-content { padding-right: 3rem; }
+  .timeline-item:nth-child(even) .item-content { padding-left: 3rem; }
+}
+
+.item-dot {
+  grid-column: 2;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.3rem;
+}
+
+.item-dot span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--black);
+  box-shadow: 0 0 0 3px var(--accent);
+  flex-shrink: 0;
+  margin-top: 0.4rem;
+}
+
+.item-year {
+  font-family: var(--ff-display);
+  /* FIX: vw maior (6vw) escala bem em mobile */
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  color: var(--accent);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.item-title {
+  font-family: var(--ff-display);
+  /* FIX: era sempre 1rem em mobile — agora tem distinção visual real */
+  font-size: clamp(1rem, 3.5vw, 1.3rem);
+  letter-spacing: 1px;
+  color: var(--white);
+  margin: 0.25rem 0 0.5rem;
+}
+
+.item-text {
+  /* FIX: era 0.88rem travado — agora escala melhor */
+  font-size: clamp(0.92rem, 2.5vw, 1rem);
+  color: rgba(245,242,237,0.65);
+  font-style: italic;
+  line-height: 1.7;
+}
+
+/* ── Mobile: timeline em coluna única ── */
+@media (max-width: 640px) {
+  .timeline {
+    /* Linha da timeline alinhada ao dot */
+    padding: 1rem 1rem 0;
+  }
+
+  .timeline::before {
+    left: 16px;
+  }
+
+  .timeline-item {
+    grid-template-columns: 32px 1fr;
+    grid-template-rows: auto;
+    margin-bottom: 2.5rem;
+  }
+
+  .timeline-item:nth-child(odd) .item-content,
+  .timeline-item:nth-child(even) .item-content {
+    grid-column: 2;
+    text-align: left;
+    padding: 0 0 0 1rem;
+    order: unset;
+  }
+
+  .item-dot {
+    grid-column: 1;
+    /* Alinha o dot verticalmente com o ano */
+    padding-top: 0.25rem;
+  }
+
+  .item-dot span {
+    width: 12px;
+    height: 12px;
+    margin-top: 0.5rem;
+  }
+
+  .timeline-item:nth-child(odd) .item-empty,
+  .timeline-item:nth-child(even) .item-empty { display: none; }
+}
+
+/* ==============================
+   TITLES GRID
+============================== */
+.titles-section {
+  background: var(--black);
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.titles-grid {
+  display: grid;
+  /*
+    FIX: em telas < ~380px, minmax(260px,1fr) causava overflow.
+    Agora usa 1 coluna em mobile (max-width 640px) via media query.
+  */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5px;
+  max-width: var(--max-content);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Coluna única em mobile pequeno */
+@media (max-width: 560px) {
+  .titles-grid {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+}
+
+/* 2 colunas em tablet */
+@media (min-width: 561px) and (max-width: 1023px) {
+  .titles-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 3 colunas fixas em desktop */
+@media (min-width: 1024px) {
+  .titles-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+}
+
+.title-card {
+  background: #111;
+  /* Padding menor em mobile */
+  padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgba(200,169,110,0.1);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.5s ease, transform 0.5s ease, background 0.3s, border-color 0.3s;
+  /* Feedback tátil no toque */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.title-card.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.title-card:hover {
+  background: #181818;
+  border-color: rgba(200,169,110,0.4);
+}
+
+.title-card:active {
+  background: #1a1a1a;
+  border-color: rgba(200,169,110,0.3);
+}
+
+.title-card__count {
+  font-family: var(--ff-display);
+  /* FIX: vw médio maior (7vw) escala bem em mobile */
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  color: var(--accent);
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.title-card__name {
+  font-family: var(--ff-display);
+  /* FIX: era sempre 0.9rem em mobile */
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  letter-spacing: 2px;
+  color: var(--white);
+  margin-top: 0.4rem;
+}
+
+.title-card__years {
+  font-size: clamp(0.78rem, 2vw, 0.85rem);
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+
+/* ==============================
+   CAROUSEL
+============================== */
+.carousel-section {
+  background: #0a0a0a;
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.carousel {
+  position: relative;
+  max-width: var(--max-content);
+  margin: 0 auto;
+  overflow: hidden;
+  /* Foco visível para acessibilidade de teclado */
+  outline: none;
+}
+
+.carousel:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* ── Track ── */
+.carousel__track {
+  display: flex;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  user-select: none;
+}
+
+/* ── Slides ── */
+.carousel__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  position: relative;
+  /* Altura responsiva: maior em desktop, menor em mobile */
+  height: clamp(280px, 55vw, 600px);
+  overflow: hidden;
+}
+
+.carousel__img-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.carousel__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* Pequeno zoom no slide ativo */
+  transform: scale(1.06);
+  transition: transform 6s ease;
+  pointer-events: none;
+}
+
+.carousel__slide.active .carousel__img-wrap img {
+  transform: scale(1);
+}
+
+/* Gradiente sobre a imagem para legibilidade da legenda */
+.carousel__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.85) 0%,
+    rgba(0,0,0,0.35) 45%,
+    rgba(0,0,0,0.10) 100%
+  );
+}
+
+/* ── Caption ── */
+.carousel__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 5vw, 4rem);
+  z-index: 2;
+  /* Entra de baixo ao trocar slide */
+  transform: translateY(10px);
+  opacity: 0;
+  transition: transform 0.55s ease 0.15s, opacity 0.55s ease 0.15s;
+}
+
+.carousel__slide.active .carousel__caption {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.carousel__year {
+  font-family: var(--ff-display);
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  letter-spacing: 5px;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.carousel__title {
+  font-family: var(--ff-display);
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  letter-spacing: 2px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.carousel__text {
+  font-family: var(--ff-body);
+  font-size: clamp(0.88rem, 2vw, 1.05rem);
+  color: rgba(245,242,237,0.75);
+  font-style: italic;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* ── Botões Prev / Next ── */
+.carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(10,10,10,0.55);
+  border: 1px solid rgba(200,169,110,0.3);
+  color: var(--accent);
+  font-size: 1.3rem;
+  /* Alvo de toque 48px */
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(6px);
+}
+
+.carousel__btn--prev { left: clamp(0.5rem, 2vw, 1.5rem); }
+.carousel__btn--next { right: clamp(0.5rem, 2vw, 1.5rem); }
+
+.carousel__btn:hover {
+  background: rgba(200,169,110,0.2);
+  border-color: var(--accent);
+}
+
+.carousel__btn:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+/* Esconde botões em mobile muito pequeno (swipe é suficiente) */
+@media (max-width: 400px) {
+  .carousel__btn { display: none; }
+}
+
+/* ── Dots ── */
+.carousel__dots {
+  position: absolute;
+  bottom: clamp(0.8rem, 2vw, 1.2rem);
+  right: clamp(1.5rem, 4vw, 3rem);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.carousel__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(245,242,237,0.35);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s, width 0.3s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  padding: 0;
+}
+
+.carousel__dot.active {
+  background: var(--accent);
+  /* Dot ativo vira uma pílula horizontal */
+  width: 22px;
+  border-radius: 4px;
+}
+
+/* ==============================
+   ANIMATIONS
+============================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ==============================
+   IDOLS SECTION
+============================== */
+.idols-section {
+  background: #080808;
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+}
+
+.idols-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5px;
+  max-width: var(--max-content);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (min-width: 1024px) {
+  .idols-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .idols-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+    gap: 1px;
+  }
+}
+
+/* ── Card ── */
+.idol-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  cursor: default;
+}
+
+.idol-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fundo colorido por ídolo */
+.idol-card__bg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s ease;
+}
+
+.idol-card:hover .idol-card__bg {
+  transform: scale(1.04);
+}
+
+/* Gradiente por cima do fundo */
+.idol-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.95) 0%,
+    rgba(0,0,0,0.6) 40%,
+    rgba(0,0,0,0.15) 100%
+  );
+  z-index: 1;
+}
+
+/* Número de camisa — decorativo grande */
+.idol-card__number {
+  position: absolute;
+  top: -0.2em;
+  right: 0.1em;
+  font-family: var(--ff-display);
+  font-size: clamp(5rem, 14vw, 9rem);
+  color: rgba(200,169,110,0.07);
+  line-height: 1;
+  z-index: 1;
+  pointer-events: none;
+  transition: color 0.4s;
+}
+
+.idol-card:hover .idol-card__number {
+  color: rgba(200,169,110,0.13);
+}
+
+/* Avatar com iniciais */
+.idol-card__avatar {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid rgba(200,169,110,0.5);
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-family: var(--ff-display);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  color: var(--accent);
+}
+
+/* Conteúdo principal */
+.idol-card__body {
+  position: relative;
+  z-index: 2;
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.idol-card__badge {
+  display: inline-block;
+  font-family: var(--ff-display);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--accent);
+  border: 1px solid rgba(200,169,110,0.3);
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.idol-card__name {
+  font-family: var(--ff-display);
+  font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+  letter-spacing: 1px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.idol-card__pos {
+  font-family: var(--ff-display);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: rgba(245,242,237,0.45);
+  margin-bottom: 0.75rem;
+}
+
+/* Stats rápidos */
+.idol-card__stats {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 0.9rem;
+}
+
+.idol-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.idol-stat__val {
+  font-family: var(--ff-display);
+  font-size: 1.3rem;
+  color: var(--accent);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.idol-stat__lbl {
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: rgba(245,242,237,0.4);
+  text-transform: uppercase;
+}
+
+/* Frase */
+.idol-card__quote {
+  font-family: var(--ff-body);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: rgba(245,242,237,0.5);
+  line-height: 1.5;
+  border-left: 2px solid rgba(200,169,110,0.3);
+  padding-left: 0.75rem;
+  margin: 0;
+  /* Escondido por padrão, aparece no hover */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+}
+
+.idol-card:hover .idol-card__quote {
+  max-height: 80px;
+  opacity: 1;
+}
+
+@media (hover: none) {
+  /* Em touch, mostra a frase sempre */
+  .idol-card__quote {
+    max-height: 80px;
+    opacity: 1;
+  }
+}
