@@ -1,0 +1,462 @@
+/* ==============================
+   BASE / RESET / VARIÁVEIS
+   ============================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:  #0a0a0a;
+  --dark:   #111111;
+  --card:   #181818;
+  --border: #2a2a2a;
+  --text:   #e8e8e8;
+  --muted:  #888;
+  --gold:   #c9a84c;
+  --radius: 10px;
+  --font-title: 'Bebas Neue', 'Impact', sans-serif;
+  --font-body:  'Crimson Pro', Georgia, serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ==============================
+   NAVBAR
+   ============================== */
+.home-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  height: 64px;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.home-nav__brand {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  color: var(--gold);
+}
+
+.home-nav__sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+/* ==============================
+   HERO
+   ============================== */
+.home-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px clamp(1rem, 5vw, 4rem) 4rem;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, #1a1a1a 0%, var(--black) 70%);
+}
+
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.015) 59px, rgba(255,255,255,0.015) 60px),
+    repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.015) 59px, rgba(255,255,255,0.015) 60px);
+  pointer-events: none;
+}
+
+.home-hero__eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.home-hero__title {
+  font-family: var(--font-title);
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.home-hero__title em { font-style: normal; color: var(--gold); }
+
+.home-hero__sub {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+  position: relative;
+}
+
+.home-hero__season {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.home-hero__scroll {
+  position: absolute;
+  bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--muted);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: bounce 2s ease-in-out infinite;
+}
+.home-hero__scroll span { font-size: 1.2rem; }
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ==============================
+   SEÇÃO DA TABELA
+   ============================== */
+.standings-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+}
+
+.standings-section__header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.standings-section__header h2 {
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: 2px;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.standings-section__header h2 em { font-style: normal; color: var(--gold); }
+.standings-section__header p { color: var(--muted); font-size: 0.95rem; }
+
+/* Loading */
+.standings-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem;
+  color: var(--muted);
+}
+
+.standings-loading__spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Meta */
+.standings-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.standings-round  { color: var(--gold); font-weight: 600; }
+
+/* Scroll horizontal */
+.standings-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #141414;
+}
+
+/* ==============================
+   TABELA
+   ============================== */
+.standings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  min-width: 700px;
+  table-layout: fixed;
+}
+
+/* Larguras fixas — table-layout:fixed garante alinhamento perfeito */
+.standings-table .col-zone   { width: 20px;  }   /* bolinha zona    */
+.standings-table .col-pos    { width: 32px;  }   /* nº posição      */
+.standings-table .col-circle { width: 44px;  }   /* círculo time    */
+.standings-table .col-team   { width: 160px; }   /* nome do clube   */
+.standings-table .col-num    { width: 36px;  }   /* J V E D GP GC   */
+.standings-table .col-sg     { width: 40px;  }   /* saldo de gols   */
+.standings-table .col-pts    { width: 44px;  }   /* pontos          */
+.standings-table .col-form   { width: 110px; }   /* forma recente   */
+
+/* Cabeçalho */
+.standings-table thead tr {
+  background: #1a1a1a;
+  border-bottom: 2px solid var(--border);
+}
+
+.standings-table th {
+  padding: 0.65rem 0.4rem;
+  text-align: center;
+  font-size: 0.68rem;
+  font-family: var(--font-body);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.standings-table th.col-zone { padding: 0; }
+.standings-table th.col-pos  { text-align: center; padding: 0.65rem 0; }
+.standings-table th.col-team { text-align: left; padding-left: 0.6rem; }
+
+/* Linhas */
+.standings-row {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.standings-row:last-child { border-bottom: none; }
+.standings-row:hover { background: #1c1c1c; }
+
+/* Separador de zona (borda superior colorida) */
+.standings-row--zone-break {
+  border-top: 2px solid #2e2e2e;
+}
+
+/* Destaque Corinthians */
+.standings-row--highlight {
+  background: rgba(255,255,255,0.035);
+  border-left: 3px solid var(--gold);
+}
+.standings-row--highlight:hover { background: rgba(255,255,255,0.06); }
+
+/* Células */
+.standings-table td {
+  padding: 0.55rem 0.4rem;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col-zone {
+  text-align: center;
+  padding: 0;
+}
+
+.col-pos {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.55rem 0;
+}
+
+.col-team {
+  text-align: left;
+  padding-left: 0.6rem;   /* igual ao th.col-team */
+}
+
+.col-num  { color: #ccc; }
+.col-sg   { color: #aaa; }
+.col-pts  { font-weight: 700; font-size: 0.95rem; color: #fff; }
+
+/* ── Coluna do círculo ── */
+.col-circle {
+  text-align: center;
+  padding: 0.4rem 0;
+}
+
+.standings-table th.col-circle { padding: 0; }
+
+/* ── Bolinha de zona ── */
+.zone-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.zone-dot--empty { background: transparent; }
+
+/* ── Círculo com inicial do time ── */
+.team-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 auto;
+}
+
+/* ── Nome do time (coluna separada) ── */
+.team-name-text {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-name-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+
+.team-name-link:hover { color: var(--gold); }
+
+.team-name-link:hover .team-arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+.team-arrow {
+  width: 14px; height: 14px;
+  opacity: 0;
+  transition: opacity 0.2s, transform 0.2s;
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ── Forma ── */
+.col-form { min-width: 100px; }
+
+.form-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px; height: 19px;
+  border-radius: 4px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  margin: 0 1px;
+  font-family: var(--font-body);
+}
+
+.form-badge--w { background: rgba(26,158,63,0.3);  color: #4cde7c; }
+.form-badge--d { background: rgba(150,150,150,0.2); color: #aaa;    }
+.form-badge--l { background: rgba(204,34,34,0.3);   color: #f07070; }
+
+/* ==============================
+   LEGENDA
+   ============================== */
+.standings-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.8rem;
+  margin-top: 1.2rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* ==============================
+   AVISO
+   ============================== */
+.api-callout {
+  margin-top: 1.5rem;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  color: var(--muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.api-callout__icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+.api-callout a { color: var(--gold); text-decoration: none; }
+.api-callout a:hover { text-decoration: underline; }
+.api-callout code { font-size: 0.78rem; color: #aaa; }
+
+/* ==============================
+   FOOTER
+   ============================== */
+.home-footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+/* ==============================
+   RESPONSIVO
+   ============================== */
+@media (max-width: 640px) {
+  .standings-meta { flex-direction: column; gap: 0.25rem; align-items: flex-start; }
+  .standings-legend { gap: 0.5rem 1rem; }
+  .col-form { display: none; }
+  .standings-table .col-form { width: 0; }
+}

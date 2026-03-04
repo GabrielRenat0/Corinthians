@@ -3,211 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sport Club Corinthians Paulista — História</title>
-
-  <!-- CSS dividido por responsabilidade -->
-  <link rel="stylesheet" href="styles/base.css" />
-  <link rel="stylesheet" href="styles/layout.css" />
-  <link rel="stylesheet" href="styles/components.css" />
-  <link rel="stylesheet" href="styles/panels.css" />
-
+  <title>Brasileirão 2026 – Série A</title>
+  <link rel="stylesheet" href="styles/home.css" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar" id="navbar">
-    <div class="navbar__inner">
-      <span class="navbar__brand">SCCP</span>
-      <div class="navbar__links">
-        <a href="#hero"     class="navbar__link">Início</a>
-        <a href="#timeline" class="navbar__link">História</a>
-        <a href="#idols"    class="navbar__link">Ídolos</a>
-        <a href="#titles"   class="navbar__link">Conquistas</a>
-        <a href="#moments"  class="navbar__link">Momentos</a>
-      </div>
-      <button class="navbar__burger" id="navBurger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-    <div class="navbar__mobile" id="navMobile">
-      <a href="#hero"     class="navbar__mobile-link">Início</a>
-      <a href="#timeline" class="navbar__mobile-link">História</a>
-      <a href="#idols"    class="navbar__mobile-link">Ídolos</a>
-      <a href="#titles"   class="navbar__mobile-link">Conquistas</a>
-      <a href="#moments"  class="navbar__mobile-link">Momentos</a>
-    </div>
+  <nav class="home-nav">
+    <span class="home-nav__brand">BR26</span>
+    <span class="home-nav__sub">Brasileirão Série A · 2026</span>
   </nav>
 
-  <!-- HERO -->
-  <header class="hero" id="hero">
-    <div class="hero__grain"></div>
-    <div class="hero__stripes"></div>
-    <div class="hero__content">
-      <p class="hero__eyebrow">Desde 1910</p>
-      <h1 class="hero__title">
-        <span>Sport Club</span>
-        <span class="accent">Corinthians</span>
-        <span>Paulista</span>
-      </h1>
-      <p class="hero__sub">A história do povo que mais sofre<br>e mais conquista no futebol brasileiro.</p>
-      <!-- scrollToTimeline é exposto em window pelo main.js -->
-      <button class="hero__cta" onclick="scrollToTimeline()">Explorar história</button>
-    </div>
-    <div class="hero__badge">
-      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="60" cy="60" r="58" stroke="white" stroke-width="1.5" stroke-dasharray="4 3"/>
-        <text x="50%" y="38%" dominant-baseline="middle" text-anchor="middle" font-family="Bebas Neue" font-size="11" fill="white" letter-spacing="3">SPORT CLUB</text>
-        <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" font-family="Bebas Neue" font-size="18" fill="white" letter-spacing="2">SCCP</text>
-        <text x="50%" y="66%" dominant-baseline="middle" text-anchor="middle" font-family="Bebas Neue" font-size="11" fill="white" letter-spacing="3">PAULISTA</text>
-        <text x="50%" y="80%" dominant-baseline="middle" text-anchor="middle" font-family="Bebas Neue" font-size="9" fill="#ccc" letter-spacing="2">1910</text>
-      </svg>
-    </div>
-    <div class="scroll-hint"><span>↓</span></div>
+  <header class="home-hero">
+    <p class="home-hero__eyebrow">Temporada 2026</p>
+    <h1 class="home-hero__title">Brasileirão<br><em>Série A</em></h1>
+    <p class="home-hero__sub">
+      Acompanhe a classificação do campeonato<br>e explore a história dos clubes.
+    </p>
+    <div class="home-hero__season">🏆 &nbsp; 20 clubes · 38 rodadas · 380 jogos</div>
+    <div class="home-hero__scroll"><span>↓</span>tabela</div>
   </header>
 
-  <!-- STATS BAR -->
-  <section class="stats-bar">
-    <div class="stat" data-target="7">
-      <span class="stat__num" id="s1">0</span>
-      <span class="stat__label">Títulos Brasileiros</span>
+  <section class="standings-section">
+    <div class="standings-section__header">
+      <h2>Tabela de <em>Classificação</em></h2>
+      <p>Clique no nome de um clube para ver sua história completa.</p>
     </div>
-    <div class="stat" data-target="1">
-      <span class="stat__num" id="s2">0</span>
-      <span class="stat__label">Libertadores</span>
-    </div>
-    <div class="stat" data-target="2">
-      <span class="stat__num" id="s3">0</span>
-      <span class="stat__label">Mundiais</span>
-    </div>
-    <div class="stat" data-target="35000000">
-      <span class="stat__num" id="s4">0</span>
-      <span class="stat__label">Torcedores no Brasil</span>
+
+    <div id="standingsContainer"></div>
+
+    <div class="api-callout">
+      <span class="api-callout__icon">⚡</span>
+      <span>
+        Dados atualizados após a <strong>4ª rodada</strong> (27/02/2026).
+        Para dados em tempo real, edite <code>js/services/StandingsService.js</code>
+        e mude <code>this._mode = 'api'</code>.
+      </span>
     </div>
   </section>
 
-  <!-- TIMELINE -->
-  <main class="timeline-section" id="timeline">
-    <div class="section-header">
-      <h2>A <em>linha do tempo</em></h2>
-      <p>Mais de um século de glória, luta e paixão.</p>
-    </div>
-    <div class="timeline" id="timelineContainer"></div>
-  </main>
-
-  <!-- ÍDOLOS -->
-  <section class="idols-section" id="idols">
-    <div class="section-header">
-      <h2>Lendas <em>imortais</em></h2>
-      <p>Os que vestiram a camisa e viraram religião.</p>
-    </div>
-    <div class="idols-grid" id="idolsGrid"></div>
-  </section>
-
-  <!-- CONQUISTAS -->
-  <section class="titles-section" id="titles">
-    <div class="section-header">
-      <h2>Principais <em>conquistas</em></h2>
-    </div>
-    <div class="titles-grid" id="titlesGrid"></div>
-  </section>
-
-  <!-- GRANDES MOMENTOS -->
-  <section class="carousel-section" id="moments">
-    <div class="section-header">
-      <h2>Grandes <em>momentos</em></h2>
-      <p>Cenas que ficaram para sempre na memória da Fiel.</p>
-    </div>
-    <div class="carousel" id="carousel">
-      <div class="carousel__track" id="carouselTrack"></div>
-      <button class="carousel__btn carousel__btn--prev" id="carouselPrev" aria-label="Anterior">&#8592;</button>
-      <button class="carousel__btn carousel__btn--next" id="carouselNext" aria-label="Próximo">&#8594;</button>
-      <div class="carousel__dots" id="carouselDots"></div>
-    </div>
-  </section>
-
-  <!-- QUOTE -->
-  <section class="quote-section">
-    <blockquote>
-      "Ser corinthiano é uma <em>religião</em>.<br>
-       É acreditar mesmo quando tudo parece impossível."
-    </blockquote>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <p>© 2025 — Página histórica não-oficial sobre o Sport Club Corinthians Paulista</p>
+  <footer class="home-footer">
+    <p>© 2026 — Projeto educacional não-oficial. Dados baseados na CBF.</p>
   </footer>
 
-  <!-- FAB MENU -->
-  <div class="fab-menu" id="fabMenu">
-    <div class="fab-menu__options" id="fabOptions">
-      <button class="fab-option" id="lineupFab" aria-label="Ver escalações históricas">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <rect x="3" y="3" width="18" height="18" rx="1"/>
-          <line x1="3" y1="9" x2="21" y2="9"/>
-          <line x1="3" y1="15" x2="21" y2="15"/>
-          <line x1="12" y1="3" x2="12" y2="21"/>
-        </svg>
-        <span>Escalações</span>
-      </button>
-      <button class="fab-option" id="statsFab" aria-label="Ver estatísticas históricas">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-        </svg>
-        <span>Estatísticas</span>
-      </button>
-    </div>
-    <button class="fab-toggle" id="fabToggle" aria-label="Abrir menu">
-      <svg class="fab-toggle__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <rect x="3" y="3" width="18" height="18" rx="1"/>
-        <line x1="3" y1="9" x2="21" y2="9"/>
-        <line x1="3" y1="15" x2="21" y2="15"/>
-        <line x1="12" y1="3" x2="12" y2="21"/>
-      </svg>
-      <span>Menu</span>
-    </button>
-  </div>
-
-  <!-- OVERLAY compartilhado pelos painéis -->
-  <div class="lineup-overlay" id="lineupOverlay"></div>
-
-  <!-- PAINEL: ESCALAÇÕES -->
-  <aside class="lineup-panel" id="lineupPanel" aria-hidden="true">
-    <div class="lineup-panel__header">
-      <div>
-        <p class="lineup-panel__eyebrow">Sport Club Corinthians Paulista</p>
-        <h2 class="lineup-panel__title">Escalações <em>Históricas</em></h2>
-      </div>
-      <button class="lineup-panel__close" id="lineupClose" aria-label="Fechar">✕</button>
-    </div>
-    <div class="lineup-years" id="lineupYears"></div>
-    <div class="lineup-content" id="lineupContent">
-      <div class="lineup-meta"  id="lineupMeta"></div>
-      <div class="lineup-field" id="lineupField"></div>
-      <div class="lineup-bench" id="lineupBench"></div>
-    </div>
-  </aside>
-
-  <!-- PAINEL: ESTATÍSTICAS -->
-  <aside class="stats-panel" id="statsPanel" aria-hidden="true">
-    <div class="lineup-panel__header">
-      <div>
-        <p class="lineup-panel__eyebrow">Sport Club Corinthians Paulista</p>
-        <h2 class="lineup-panel__title">Estatísticas <em>Históricas</em></h2>
-      </div>
-      <button class="lineup-panel__close" id="statsClose" aria-label="Fechar">✕</button>
-    </div>
-    <div class="stats-panel__tabs" id="statsTabs">
-      <button class="stats-tab active" data-tab="scorers">⚽ Artilheiros</button>
-      <button class="stats-tab" data-tab="assists">🎯 Assistências</button>
-      <button class="stats-tab" data-tab="games">👕 Jogos</button>
-      <button class="stats-tab" data-tab="saves">🧤 Pênaltis</button>
-    </div>
-    <div class="stats-panel__content" id="statsPanelContent"></div>
-  </aside>
-
-  <script type="module" src="js/main.js"></script>
-
+  <script type="module" src="js/main-home.js"></script>
 </body>
 </html>

@@ -5,6 +5,11 @@ import { lineupData } from '../../data/lineups.js';
  * @class LineupPanel
  * @extends Panel
  * @classdesc Painel lateral de escalações históricas.
+ *
+ * CONCEITO POO — Herança + Polimorfismo:
+ *   - Herda open(), close(), isOpen e _bindEvents() de Panel
+ *   - Sobrescreve render() com sua própria lógica de escalação
+ *   - Adiciona comportamentos próprios: seletor de anos, campo visual
  */
 export class LineupPanel extends Panel {
   /**

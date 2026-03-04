@@ -1,6 +1,13 @@
 /**
  * @class Panel
  * @classdesc Classe base abstrata para painéis laterais deslizantes.
+ * Define o contrato (open/close/render) que as subclasses devem implementar.
+ *
+ * CONCEITO POO — Abstração + Herança:
+ *   - Panel não é instanciada diretamente (seria "abstrata" em outras linguagens)
+ *   - LineupPanel e StatsPanel herdam dela via `extends`
+ *   - open() e close() são concretos (código compartilhado)
+ *   - render() é "abstrato": subclasses DEVEM sobrescrever
  */
 export class Panel {
   /**

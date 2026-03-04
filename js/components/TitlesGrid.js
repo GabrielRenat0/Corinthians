@@ -3,6 +3,10 @@ import { titlesData } from '../../data/titles.js';
 /**
  * @class TitlesGrid
  * @classdesc Renderiza o grid de conquistas do clube com animação de entrada.
+ *
+ * CONCEITO POO — Responsabilidade única:
+ *   - Esta classe só cuida do grid de títulos
+ *   - Dados vêm de data/titles.js
  */
 export class TitlesGrid {
   /**

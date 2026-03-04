@@ -3,6 +3,10 @@ import { idolsData } from '../../data/idols.js';
 /**
  * @class IdolsGrid
  * @classdesc Renderiza o grid de lendas históricas com animação de entrada.
+ *
+ * CONCEITO POO — Responsabilidade única:
+ *   - Só cuida dos cards de ídolos
+ *   - Toda lógica de montagem de HTML isolada em _buildCard()
  */
 export class IdolsGrid {
   /**

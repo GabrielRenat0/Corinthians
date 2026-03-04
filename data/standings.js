@@ -1,0 +1,30 @@
+export const standingsData = {
+  season:  "2026",
+  league:  "Brasileirão Betano – Série A",
+  round:   4,
+  updated: "27/02/2026",
+  source:  "CBF",
+
+teams: [
+  { id:"palmeiras",     name:"Palmeiras",          short:"PAL", color:"#006437", accent:"#FFDF00", hasPage:false, pageUrl:null,               played:4, won:3, drawn:1, lost:0, gf:8,  ga:3, points:10, zone:"libertadores-g", form:["W","W","D","W"] },
+  { id:"sao-paulo",     name:"São Paulo",           short:"SAO", color:"#CC0000", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:4, won:3, drawn:1, lost:0, gf:6,  ga:2, points:10, zone:"libertadores-g", form:["W","D","W","W"] },
+  { id:"corinthians",   name:"Corinthians",         short:"COR", color:"#111111", accent:"#FFFFFF", hasPage:true,  pageUrl:"corinthians.html", played:4, won:2, drawn:1, lost:1, gf:5,  ga:4, points: 7, zone:"libertadores-g", form:["W","W","L","D"] },
+  { id:"bahia",         name:"Bahia",               short:"BAH", color:"#003DA5", accent:"#E4032E", hasPage:false, pageUrl:null,               played:3, won:2, drawn:1, lost:0, gf:5,  ga:2, points: 7, zone:"libertadores-g", form:["W","D","W"]     },
+  { id:"fluminense",    name:"Fluminense",          short:"FLU", color:"#8B0000", accent:"#6DBE45", hasPage:false, pageUrl:null,               played:4, won:2, drawn:1, lost:1, gf:6,  ga:4, points: 7, zone:"libertadores-p", form:["D","W","W","L"] },
+  { id:"athletico",     name:"Athletico-PR",        short:"CAP", color:"#CC0000", accent:"#111111", hasPage:false, pageUrl:null,               played:4, won:1, drawn:1, lost:2, gf:3,  ga:5, points: 4, zone:"libertadores-p", form:["L","W","L","D"] },
+  { id:"red-bull",      name:"Red Bull Bragantino", short:"RBB", color:"#CC0000", accent:"#FFFF00", hasPage:false, pageUrl:null,               played:4, won:1, drawn:1, lost:2, gf:4,  ga:6, points: 4, zone:"sulamericana",   form:["W","L","D","L"] },
+  { id:"gremio",        name:"Grêmio",              short:"GRE", color:"#1B3F7C", accent:"#AECEF0", hasPage:false, pageUrl:null,               played:4, won:2, drawn:0, lost:2, gf:5,  ga:5, points: 6, zone:"sulamericana",   form:["W","L","W","L"] },
+  { id:"chapecoense",   name:"Chapecoense",         short:"CHA", color:"#006633", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:3, won:2, drawn:1, lost:0, gf:4,  ga:1, points: 7, zone:"sulamericana",   form:["W","D","W"]     },
+  { id:"mirassol",      name:"Mirassol",            short:"MIR", color:"#DAA520", accent:"#111111", hasPage:false, pageUrl:null,               played:3, won:1, drawn:1, lost:1, gf:2,  ga:2, points: 4, zone:"sulamericana",   form:["W","D","L"]     },
+  { id:"flamengo",      name:"Flamengo",            short:"FLA", color:"#CC0000", accent:"#111111", hasPage:false, pageUrl:null,               played:3, won:1, drawn:2, lost:0, gf:3,  ga:2, points: 5, zone:"sulamericana",   form:["D","W","D"]     },
+  { id:"coritiba",      name:"Coritiba",            short:"CBB", color:"#006400", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:4, won:0, drawn:1, lost:3, gf:1,  ga:6, points: 1, zone:"sulamericana",   form:["L","L","D","L"] },
+  { id:"santos",        name:"Santos",              short:"SAN", color:"#111111", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:4, won:1, drawn:1, lost:2, gf:4,  ga:6, points: 4, zone:"neutro",         form:["L","D","L","W"] },
+  { id:"botafogo",      name:"Botafogo",            short:"BOT", color:"#1a1a1a", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:3, won:1, drawn:1, lost:1, gf:3,  ga:3, points: 4, zone:"neutro",         form:["D","W","L"]     },
+  { id:"vitoria",       name:"Vitória",             short:"VIT", color:"#CC0000", accent:"#111111", hasPage:false, pageUrl:null,               played:3, won:0, drawn:2, lost:1, gf:2,  ga:4, points: 2, zone:"neutro",         form:["D","L","D"]     },
+  { id:"remo",          name:"Remo",                short:"REM", color:"#003DA5", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:4, won:0, drawn:2, lost:2, gf:2,  ga:5, points: 2, zone:"neutro",         form:["L","D","D","L"] },
+  { id:"atletico-mg",   name:"Atlético-MG",         short:"ATL", color:"#111111", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:4, won:0, drawn:2, lost:2, gf:2,  ga:5, points: 2, zone:"rebaixamento",   form:["D","L","D","L"] },
+  { id:"internacional", name:"Internacional",       short:"INT", color:"#CC0000", accent:"#FFFF00", hasPage:false, pageUrl:null,               played:4, won:0, drawn:2, lost:2, gf:3,  ga:5, points: 2, zone:"rebaixamento",   form:["L","D","D","L"] },
+  { id:"cruzeiro",      name:"Cruzeiro",            short:"CRU", color:"#003DA5", accent:"#FFFF00", hasPage:false, pageUrl:null,               played:4, won:0, drawn:2, lost:2, gf:2,  ga:4, points: 2, zone:"rebaixamento",   form:["D","L","D","L"] },
+  { id:"vasco",         name:"Vasco",               short:"VAS", color:"#111111", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:4, won:0, drawn:1, lost:3, gf:2,  ga:7, points: 1, zone:"rebaixamento",   form:["L","D","L","L"] },
+]
+};

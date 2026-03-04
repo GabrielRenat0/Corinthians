@@ -5,6 +5,11 @@ import { statsData } from '../../data/stats.js';
  * @class StatsPanel
  * @extends Panel
  * @classdesc Painel lateral de estatísticas históricas com abas.
+ *
+ * CONCEITO POO — Herança + Polimorfismo:
+ *   - Herda open(), close() e _bindEvents() de Panel
+ *   - Sobrescreve render() com sua lógica de abas e rankings
+ *   - Estado interno: qual aba está ativa (_activeTab)
  */
 export class StatsPanel extends Panel {
   /**
