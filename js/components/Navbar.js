@@ -1,10 +1,6 @@
 /**
  * @class Navbar
  * @classdesc Barra de navegação fixa com comportamento de scroll inteligente.
- *
- * CONCEITO POO — Encapsulamento:
- *   - Todos os elementos DOM e o estado de scroll ficam privados
- *   - A classe expõe apenas o método init() publicamente
  */
 export class Navbar {
   constructor() {

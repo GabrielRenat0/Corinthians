@@ -1,24 +1,5 @@
 /**
  * @fileoverview Ponto de entrada da aplicação.
- *
- * CONCEITO POO — Abstração:
- *   Este arquivo não sabe COMO cada componente funciona por dentro.
- *   Ele apenas instancia e chama init() — o contrato público de cada classe.
- *
- * Hierarquia de classes:
- *
- *   Panel (base abstrata)
- *   ├── LineupPanel   (herda open/close, sobrescreve render)
- *   └── StatsPanel    (herda open/close, sobrescreve render)
- *
- *   Componentes independentes:
- *   ├── Navbar
- *   ├── Timeline
- *   ├── TitlesGrid
- *   ├── Carousel
- *   ├── IdolsGrid
- *   ├── StatCounter
- *   └── FabMenu
  */
 
 import { Navbar      } from './components/Navbar.js';

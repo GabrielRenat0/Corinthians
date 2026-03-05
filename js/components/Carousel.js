@@ -3,11 +3,6 @@ import { carouselData } from '../../data/carousel.js';
 /**
  * @class Carousel
  * @classdesc Carrossel de grandes momentos com autoplay, swipe e teclado.
- *
- * CONCEITO POO — Encapsulamento:
- *   - Estado interno (_current, _timer) nunca exposto externamente
- *   - Métodos públicos: init()
- *   - Métodos privados: _render(), _goTo(), _next(), _prev(), etc.
  */
 export class Carousel {
   /**

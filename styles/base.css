@@ -1,5 +1,3 @@
-/* base.css — Reset, variáveis CSS, tipografia, hero e stats bar */
-
 /* ==============================
    RESET & VARIABLES
 ============================== */
@@ -208,7 +206,6 @@ body {
   50%       { transform: translateX(-50%) translateY(8px); }
 }
 
-
 /* ==============================
    STATS BAR
 ============================== */
@@ -296,7 +293,6 @@ body {
   /* FIX: vw médio maior para funcionar em mobile */
   font-size: clamp(0.95rem, 3vw, 1.1rem);
 }
-
 
 /* ==============================
    REDUCED MOTION
@@ -443,3 +439,29 @@ body {
   }
 }
 
+/* ── Botão voltar ── */
+.btn-voltar {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 950;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid #c9a84c;
+  border-radius: 999px;
+  color: #c9a84c;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-voltar:hover {
+  background: #c9a84c;
+  color: #000;
+}

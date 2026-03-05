@@ -3,10 +3,6 @@ import { timelineData } from '../../data/timeline.js';
 /**
  * @class Timeline
  * @classdesc Renderiza e anima a linha do tempo histórica do Corinthians.
- *
- * CONCEITO POO — Encapsulamento:
- *   - Dados importados de data/timeline.js (separação de responsabilidades)
- *   - Lógica de renderização e observer encapsulados na classe
  */
 export class Timeline {
   /**

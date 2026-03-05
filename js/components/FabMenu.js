@@ -1,11 +1,6 @@
 /**
  * @class FabMenu
  * @classdesc Botão flutuante de ação (FAB) com menu expansível.
- * Gerencia abertura/fechamento das opções e integração com os painéis.
- *
- * CONCEITO POO — Encapsulamento:
- *   - Estado _isOpen encapsulado
- *   - Fecha automaticamente ao clicar fora
  */
 export class FabMenu {
   /**

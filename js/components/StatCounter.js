@@ -1,11 +1,6 @@
 /**
  * @class StatCounter
  * @classdesc Anima contadores numéricos quando entram na viewport.
- *
- * CONCEITO POO — Encapsulamento + Responsabilidade única:
- *   - Cada instância gerencia UMA barra de stats
- *   - A animação de números é encapsulada em _animateCounter()
- *   - O gatilho de IntersectionObserver é separado em _observe()
  */
 export class StatCounter {
   /**

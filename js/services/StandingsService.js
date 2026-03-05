@@ -1,13 +1,6 @@
 /**
  * @class StandingsService
  * @classdesc Busca a tabela do Brasileirão na api-futebol.com.br
- *
- * MODO TESTE  → chave "test_..." → dados fictícios, estrutura real
- * MODO REAL   → substitua API_KEY pela sua chave de produção
- *               e API_CAMPEONATO_ID pelo ID do Brasileirão 2026
- *
- * Para descobrir o ID real do Brasileirão 2026:
- *   GET /v1/campeonatos  (com a chave de produção)
  */
 
 import { standingsData } from '../../data/standings.js';
