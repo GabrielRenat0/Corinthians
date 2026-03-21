@@ -24,7 +24,7 @@ teams: [
   { id:"remo",          name:"Remo",                short:"REM", color:"#003DA5", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:4, won:0, drawn:2, lost:2, gf:2,  ga:5, points: 2, zone:"neutro",         form:["L","D","D","L"] },
   { id:"atletico-mg",   name:"Atlético-MG",         short:"ATL", color:"#111111", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:4, won:0, drawn:2, lost:2, gf:2,  ga:5, points: 2, zone:"rebaixamento",   form:["D","L","D","L"] },
   { id:"internacional", name:"Internacional",       short:"INT", color:"#CC0000", accent:"#FFFF00", hasPage:false, pageUrl:null,               played:4, won:0, drawn:2, lost:2, gf:3,  ga:5, points: 2, zone:"rebaixamento",   form:["L","D","D","L"] },
-  { id:"cruzeiro",      name:"Cruzeiro",            short:"CRU", color:"#003DA5", accent:"#FFFF00", hasPage:false, pageUrl:null,               played:4, won:0, drawn:2, lost:2, gf:2,  ga:4, points: 2, zone:"rebaixamento",   form:["D","L","D","L"] },
+  { id:"cruzeiro",      name:"Cruzeiro",            short:"CRU", color:"#003DA5", accent:"#FFFF00", hasPage:true, pageUrl:"cruzeiro.html",               played:4, won:0, drawn:2, lost:2, gf:2,  ga:4, points: 2, zone:"rebaixamento",   form:["D","L","D","L"] },
   { id:"vasco",         name:"Vasco",               short:"VAS", color:"#111111", accent:"#FFFFFF", hasPage:false, pageUrl:null,               played:4, won:0, drawn:1, lost:3, gf:2,  ga:7, points: 1, zone:"rebaixamento",   form:["L","D","L","L"] },
 ]
 };

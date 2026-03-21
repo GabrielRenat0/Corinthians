@@ -465,3 +465,7 @@ body {
   background: #c9a84c;
   color: #000;
 }
+
+.quote-section--cruzeiro {
+  background: linear-gradient(135deg, #001a6e 0%, #003DA5 60%, #000d40 100%);
+}
