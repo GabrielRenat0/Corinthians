@@ -1,6 +1,7 @@
 /**
- * Script para atualizar data/standings.js diretamente da API football-data.org.
- * Execute com: node scripts/update-standings.mjs
+ * Script para atualizar data/standings.js e data/league-data.js
+ * diretamente da API football-data.org.
+ * Execute com: npm run update-standings
  */
 
 import fs from 'node:fs';
@@ -9,10 +10,12 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const targetPath = path.resolve(__dirname, '../data/standings.js');
+const standingsPath = path.resolve(__dirname, '../data/standings.js');
+const leagueDataPath = path.resolve(__dirname, '../data/league-data.js');
 
 const API_KEY = 'c8790ec04daf44cc9dcc4223b74945f0';
-const URL = 'https://api.football-data.org/v4/competitions/BSA/standings';
+const BASE_URL = 'https://api.football-data.org/v4';
+const COMPETITION = 'BSA';
 
 const CLUB_META = {
   'Flamengo':      { id: 'flamengo',    name: 'Flamengo',            short: 'FLA', color: '#CC0000', accent: '#111111', hasPage: false, pageUrl: null },
@@ -45,19 +48,22 @@ function getZone(pos) {
   return 'neutro';
 }
 
-async function update() {
-  console.log('Buscando classificação atualizada da API football-data.org...');
-  const res = await fetch(URL, {
+async function apiFetch(endpoint) {
+  const res = await fetch(`${BASE_URL}${endpoint}`, {
     headers: { 'X-Auth-Token': API_KEY }
   });
+  if (!res.ok) throw new Error(`HTTP ${res.status} em ${endpoint}`);
+  return res.json();
+}
 
-  if (!res.ok) {
-    throw new Error(`Falha na API: HTTP ${res.status}`);
-  }
+async function syncAll() {
+  console.log('🔄 Sincronizando dados completos do Brasileirão Série A 2026...');
 
-  const json = await res.json();
-  const table = json.standings[0].table;
-  const matchday = json.season.currentMatchday || 26;
+  // 1. Tabela de Classificação
+  console.log('📊 1/3 Buscando tabela de classificação...');
+  const standingsJson = await apiFetch(`/competitions/${COMPETITION}/standings`);
+  const table = standingsJson.standings[0].table;
+  const currentMatchday = standingsJson.season.currentMatchday || 26;
 
   const teams = table.map((item, idx) => {
     const pos = idx + 1;
@@ -68,6 +74,7 @@ async function update() {
       id: meta.id || sName.toLowerCase().replace(/[^a-z0-9]/g, '-'),
       name: meta.name || sName,
       short: meta.short || item.team.tla || sName.slice(0, 3).toUpperCase(),
+      crest: item.team.crest || null,
       color: meta.color || '#333333',
       accent: meta.accent || '#FFFFFF',
       hasPage: meta.hasPage || false,
@@ -84,20 +91,127 @@ async function update() {
     };
   });
 
-  const output = `export const standingsData = ${JSON.stringify({
+  const standingsData = {
     season: '2026',
     league: 'Brasileirão Betano – Série A',
-    round: matchday,
+    round: currentMatchday,
     updated: new Date().toLocaleDateString('pt-BR'),
-    source: 'football-data.org (Sincronizado via API)',
+    source: 'football-data.org',
     teams
-  }, null, 2)};\n`;
+  };
 
-  fs.writeFileSync(targetPath, output, 'utf-8');
-  console.log(`✅ Sucesso! Tabela atualizada na ${matchday}ª rodada em ${targetPath}`);
+  fs.writeFileSync(standingsPath, `export const standingsData = ${JSON.stringify(standingsData, null, 2)};\n`, 'utf-8');
+  console.log('✅ data/standings.js salvo com sucesso.');
+
+  // 2. Artilharia e Estatísticas
+  console.log('⚽ 2/3 Buscando artilheiros e estatísticas...');
+  const scorersJson = await apiFetch(`/competitions/${COMPETITION}/scorers`);
+  const scorersList = (scorersJson.scorers || []).map(s => {
+    const tName = s.team.shortName || s.team.name;
+    const meta = CLUB_META[tName] || CLUB_META[s.team.name] || {};
+    return {
+      player: s.player.name,
+      team: meta.name || tName,
+      teamId: meta.id || null,
+      crest: s.team.crest || null,
+      goals: s.goals,
+      assists: s.assists || 0,
+      playedMatches: s.playedMatches,
+      penalties: s.penalties || 0
+    };
+  });
+
+  // Melhores defesas (calculadas a partir da tabela)
+  const bestDefenses = [...teams]
+    .sort((a, b) => a.ga - b.ga)
+    .slice(0, 5)
+    .map(t => ({
+      name: t.name,
+      id: t.id,
+      crest: t.crest,
+      ga: t.ga,
+      played: t.played,
+      average: (t.ga / (t.played || 1)).toFixed(2)
+    }));
+
+  // Melhores ataques
+  const bestAttacks = [...teams]
+    .sort((a, b) => b.gf - a.gf)
+    .slice(0, 5)
+    .map(t => ({
+      name: t.name,
+      id: t.id,
+      crest: t.crest,
+      gf: t.gf,
+      played: t.played,
+      average: (t.gf / (t.played || 1)).toFixed(2)
+    }));
+
+  // 3. Jogos Recentes e Próximos Jogos
+  console.log('📅 3/3 Buscando rodada atual e próxima rodada...');
+  const recentMatchday = currentMatchday;
+  const nextMatchday = currentMatchday + 1;
+
+  const [recentMatchesJson, nextMatchesJson] = await Promise.all([
+    apiFetch(`/competitions/${COMPETITION}/matches?matchday=${recentMatchday}`),
+    apiFetch(`/competitions/${COMPETITION}/matches?matchday=${nextMatchday}`)
+  ]);
+
+  function normalizeMatch(m) {
+    const homeName = m.homeTeam.shortName || m.homeTeam.name;
+    const awayName = m.awayTeam.shortName || m.awayTeam.name;
+    const homeMeta = CLUB_META[homeName] || CLUB_META[m.homeTeam.name] || {};
+    const awayMeta = CLUB_META[awayName] || CLUB_META[m.awayTeam.name] || {};
+
+    const dateObj = new Date(m.utcDate);
+    const dateFormatted = dateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+    const timeFormatted = dateObj.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const weekdayFormatted = dateObj.toLocaleDateString('pt-BR', { weekday: 'short' }).replace('.', '');
+
+    return {
+      id: m.id,
+      status: m.status, // FINISHED, TIMED, IN_PLAY, etc.
+      matchday: m.matchday,
+      date: dateFormatted,
+      time: timeFormatted,
+      weekday: weekdayFormatted,
+      homeTeam: {
+        id: homeMeta.id || null,
+        name: homeMeta.name || homeName,
+        short: homeMeta.short || m.homeTeam.tla || homeName.slice(0, 3).toUpperCase(),
+        crest: m.homeTeam.crest || null
+      },
+      awayTeam: {
+        id: awayMeta.id || null,
+        name: awayMeta.name || awayName,
+        short: awayMeta.short || m.awayTeam.tla || awayName.slice(0, 3).toUpperCase(),
+        crest: m.awayTeam.crest || null
+      },
+      score: {
+        home: m.score?.fullTime?.home ?? null,
+        away: m.score?.fullTime?.away ?? null
+      }
+    };
+  }
+
+  const leagueData = {
+    round: currentMatchday,
+    nextRound: nextMatchday,
+    updated: new Date().toLocaleDateString('pt-BR'),
+    scorers: scorersList,
+    assists: [...scorersList].filter(s => s.assists > 0).sort((a, b) => b.assists - a.assists),
+    bestDefenses,
+    bestAttacks,
+    recentMatches: (recentMatchesJson.matches || []).map(normalizeMatch),
+    nextMatches: (nextMatchesJson.matches || []).map(normalizeMatch)
+  };
+
+  fs.writeFileSync(leagueDataPath, `export const leagueData = ${JSON.stringify(leagueData, null, 2)};\n`, 'utf-8');
+  console.log('✅ data/league-data.js salvo com sucesso.');
+  console.log(`🎉 Concluído com sucesso! Rodada ${currentMatchday} e ${nextMatchday} sincronizadas.`);
 }
 
-update().catch(err => {
-  console.error('❌ Erro ao atualizar tabela:', err.message);
+syncAll().catch(err => {
+  console.error('❌ Erro na sincronização:', err);
   process.exit(1);
 });

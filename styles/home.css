@@ -150,9 +150,9 @@ body {
    SEÇÃO DA TABELA
    ============================== */
 .standings-section {
-  max-width: 960px;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2.5rem);
 }
 
 .standings-section__header {
@@ -328,7 +328,20 @@ body {
 
 .zone-dot--empty { background: transparent; }
 
-/* ── Círculo com inicial do time ── */
+/* ── Círculo com inicial do time & Escudo oficial ── */
+.team-crest {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  transition: transform 0.2s ease;
+}
+.standings-row:hover .team-crest {
+  transform: scale(1.15);
+}
+
 .team-circle {
   display: inline-flex;
   align-items: center;
@@ -452,11 +465,391 @@ body {
 }
 
 /* ==============================
-   RESPONSIVO
+   GRID PANORAMA DO BRASILEIRÃO
    ============================== */
+.league-layout-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(310px, 0.95fr) minmax(310px, 1fr);
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.league-col {
+  min-width: 0;
+}
+
+/* ==============================
+   CARDS DE SIDEBAR (ESTATÍSTICAS & JOGOS)
+   ============================== */
+.sidebar-card {
+  background: #141414;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.sidebar-card__icon {
+  font-size: 1.35rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 8px;
+}
+
+.sidebar-card__header h3 {
+  font-family: var(--font-title);
+  font-size: 1.35rem;
+  letter-spacing: 1px;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.sidebar-card__header p {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ── Card de Destaque (Líder) ── */
+.stat-highlight-card {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: linear-gradient(135deg, rgba(201,168,76,0.14) 0%, rgba(20,20,20,0.6) 100%);
+  border: 1px solid rgba(201,168,76,0.35);
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.stat-highlight-crest img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,0.6));
+}
+
+.stat-highlight-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.stat-highlight-label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.stat-highlight-name {
+  display: block;
+  font-size: 1.05rem;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-highlight-team {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.stat-highlight-num {
+  text-align: right;
+}
+
+.stat-highlight-num span {
+  font-family: var(--font-title);
+  font-size: 2.2rem;
+  color: var(--gold);
+  line-height: 1;
+  display: block;
+}
+
+.stat-highlight-num small {
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── Linhas de Estatística ── */
+.stat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stat-player-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.02);
+  transition: background 0.15s ease;
+}
+
+.stat-player-row:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.stat-player-rank {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--muted);
+  width: 16px;
+  text-align: center;
+}
+
+.stat-team-crest {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.stat-player-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.stat-player-name {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-player-team {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.stat-player-metric {
+  text-align: right;
+  font-size: 0.92rem;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.stat-player-metric strong {
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+.stat-player-metric em {
+  font-style: normal;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-left: 2px;
+}
+
+/* ==============================
+   CENTRAL DE JOGOS (MATCHES WIDGET)
+   ============================== */
+.matches-nav-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  background: rgba(0,0,0,0.3);
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.matches-tab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.5rem 0.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.matches-tab-btn:hover {
+  color: #fff;
+}
+
+.matches-tab-btn.is-active {
+  background: rgba(201,168,76,0.18);
+  color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.4);
+}
+
+.matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 540px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Scrollbar customizada */
+.matches-list::-webkit-scrollbar {
+  width: 5px;
+}
+.matches-list::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 4px;
+}
+
+/* Card de Partida */
+.match-card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 0.75rem 0.85rem;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.match-card:hover {
+  border-color: rgba(201,168,76,0.3);
+  transform: translateY(-1px);
+}
+
+.match-card--highlight {
+  border-left: 3px solid var(--gold);
+  background: rgba(201,168,76,0.04);
+}
+
+.match-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.match-time {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.match-card__teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.match-team {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.match-team--away {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.match-team__crest {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.match-team__name {
+  font-size: 0.84rem;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.match-team--cor .match-team__name {
+  font-weight: 700;
+  color: #fff;
+}
+
+.match-center {
+  padding: 0 0.4rem;
+  flex-shrink: 0;
+}
+
+.match-score {
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.08);
+  white-space: nowrap;
+}
+
+.match-score span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 2px;
+}
+
+.match-vs {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ==============================
+   RESPONSIVO DO GRID E COMPONENTES
+   ============================== */
+@media (max-width: 1200px) {
+  .league-layout-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .league-col--standings {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .league-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 640px) {
   .standings-meta { flex-direction: column; gap: 0.25rem; align-items: flex-start; }
   .standings-legend { gap: 0.5rem 1rem; }
   .col-form { display: none; }
   .standings-table .col-form { width: 0; }
 }
+

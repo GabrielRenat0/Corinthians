@@ -26,18 +26,29 @@
 
   <section class="standings-section">
     <div class="standings-section__header">
-      <h2>Tabela de <em>Classificação</em></h2>
-      <p>Clique no nome de um clube para ver sua história completa.</p>
+      <h2>Tabela & <em>Panorama 2026</em></h2>
+      <p>Classificação ao vivo, destaques individuais e o calendário de jogos da Série A.</p>
     </div>
 
-    <div id="standingsContainer"></div>
+    <div class="league-layout-grid">
+      <!-- Coluna 1: Tabela de Classificação -->
+      <div class="league-col league-col--standings">
+        <div id="standingsContainer"></div>
 
-    <div class="api-callout">
-      <span class="api-callout__icon">⚡</span>
-      <span>
-        Tabela integrada com a API oficial do <strong>Brasileirão Série A</strong> (football-data.org).
-        Para atualizar os dados a qualquer momento, execute <code>npm run update-standings</code> no terminal.
-      </span>
+        <div class="api-callout">
+          <span class="api-callout__icon">⚡</span>
+          <span>
+            Dados sincronizados com a API oficial do <strong>Brasileirão Série A</strong> (football-data.org).
+            Atualize a qualquer momento executando <code>npm run update-standings</code> no terminal.
+          </span>
+        </div>
+      </div>
+
+      <!-- Coluna 2: Estatísticas (Artilheiros, Garçons, Defesa) -->
+      <aside class="league-col league-col--stats" id="statsContainer"></aside>
+
+      <!-- Coluna 3: Jogos (Placares e Próximas Rodadas) -->
+      <aside class="league-col league-col--matches" id="matchesContainer"></aside>
     </div>
   </section>
 

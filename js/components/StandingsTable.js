@@ -57,11 +57,15 @@ export class StandingsTable {
         ? '<span class="zone-dot" style="background:' + zoneColor + '" title="' + zoneLabel + '"></span>'
         : '<span class="zone-dot zone-dot--empty"></span>';
 
-      // Coluna 3 — círculo com inicial (coluna própria, sempre 44px)
-      const circle =
-        '<span class="team-circle" style="background:' + team.color + ';color:' + team.accent + '">' +
+      // Coluna 3 — escudo oficial do time (com fallback para círculo com inicial)
+      const crestImg = team.crest
+        ? '<img src="' + team.crest + '" alt="' + team.name + '" class="team-crest" loading="lazy" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'inline-flex\';" />'
+        : '';
+      const fallbackCircle =
+        '<span class="team-circle" style="' + (team.crest ? 'display:none;' : '') + 'background:' + team.color + ';color:' + team.accent + '">' +
           team.short[0] +
         '</span>';
+      const circle = crestImg + fallbackCircle;
 
       // Coluna 4 — nome (link se tiver página)
       const nameCell = team.hasPage
