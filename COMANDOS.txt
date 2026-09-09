@@ -1,0 +1,64 @@
+====================================================================
+           GUIA DE COMANDOS ÚTEIS — PROJETO CORINTHIANS / BRASILEIRÃO
+====================================================================
+
+1. ATUALIZAR TABELA, ARTILHARIA E JOGOS COM A API OFICIAL
+--------------------------------------------------------------------
+Sempre que quiser atualizar as posições, placares e artilharia do 
+Brasileirão com a rodada mais recente da API football-data.org:
+
+    npm run update-standings
+
+    (ou diretamente: node scripts/update-standings.mjs)
+
+Isso busca automaticamente:
+  - Classificação completa e escudos oficiais dos 20 clubes
+  - Artilheiros e líderes de assistências
+  - Placares da rodada encerrada
+  - Datas e horários da próxima rodada
+
+
+2. EXECUTAR O PROJETO LOCALMENTE NO NAVEGADOR
+--------------------------------------------------------------------
+Opção A (Mais recomendada no VS Code):
+  - Clique com o botão direito no arquivo "index.html"
+  - Selecione "Open with Live Server"
+
+Opção B (Via Terminal com servidor local leve):
+  - Se quiser rodar um servidor HTTP sem extensões:
+    npx serve .
+    (ou: npx http-server .)
+
+
+3. COMANDOS DO GIT / GITHUB
+--------------------------------------------------------------------
+Para salvar suas alterações e enviar para o GitHub:
+
+1) Ver o que foi modificado:
+    git status
+
+2) Adicionar todas as mudanças:
+    git add .
+
+3) Criar o commit com uma mensagem descritiva:
+    git commit -m "sua mensagem aqui"
+
+4) Enviar para o GitHub:
+    git push origin main
+
+5) Puxar alterações do GitHub (caso edite direto no site do GitHub):
+    git pull origin main
+
+
+4. ARQUIVOS IMPORTANTES DO PROJETO
+--------------------------------------------------------------------
+- index.html                   -> Página principal com tabela, artilharia e jogos
+- corinthians.html             -> Página temática e história do Corinthians
+- cruzeiro.html                -> Página do Cruzeiro
+- data/standings.js            -> Dados da tabela de classificação
+- data/league-data.js          -> Dados de artilharia, assistências e partidas
+- scripts/update-standings.mjs -> Script de sincronização com a API
+- js/components/               -> Componentes visuais em JavaScript
+- styles/home.css              -> Estilos visuais da página inicial
+
+====================================================================
