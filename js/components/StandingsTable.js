@@ -10,8 +10,11 @@ export class StandingsTable {
     this._showLoading();
     try {
       const data = await this._service.fetch();
+      // Garante que os times estejam ordenados pelo critério da CBF
+      data.teams = this._service.sort(data.teams);
       this._render(data);
     } catch (e) {
+      console.error('[StandingsTable] Erro:', e);
       this._container.innerHTML = '<p style="color:#888;padding:2rem">Erro ao carregar tabela.</p>';
     }
   }

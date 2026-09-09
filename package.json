@@ -1,0 +1,9 @@
+{
+  "name": "corinthians-project",
+  "version": "1.0.0",
+  "description": "Projeto Brasileirão e SCCP",
+  "type": "module",
+  "scripts": {
+    "update-standings": "node scripts/update-standings.mjs"
+  }
+}
