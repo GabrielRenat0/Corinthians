@@ -45,10 +45,18 @@ export class IdolsGrid {
     card.className = 'idol-card';
     card.style.animationDelay = (i * 0.08) + 's';
 
+    const photoHTML = idol.photo
+      ? '<img class="idol-card__photo" src="' + idol.photo + '" alt="Foto de ' + idol.name + '" loading="lazy" onerror="this.remove();" />'
+      : '';
+    const avatarHTML = idol.photo
+      ? '<img src="' + idol.photo + '" alt="" loading="lazy" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'inline\';" /><span style="display:none">' + idol.initials + '</span>'
+      : '<span>' + idol.initials + '</span>';
+
     card.innerHTML =
       '<div class="idol-card__bg" style="background:' + idol.color + '"></div>' +
+      photoHTML +
       '<div class="idol-card__number">' + idol.number + '</div>' +
-      '<div class="idol-card__avatar"><span>' + idol.initials + '</span></div>' +
+      '<div class="idol-card__avatar">' + avatarHTML + '</div>' +
       '<div class="idol-card__body">' +
         '<span class="idol-card__badge">'  + idol.badge    + '</span>' +
         '<h3 class="idol-card__name">'     + idol.name     + '</h3>'  +

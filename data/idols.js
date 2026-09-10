@@ -12,6 +12,7 @@
  * @property {string} color    - Cor de fundo do card (hex)
  * @property {string} initials - Iniciais para o avatar
  * @property {string} badge    - Apelido/título
+ * @property {string} photo    - Foto da lenda
  */
 
 export const idolsData = [
@@ -25,7 +26,8 @@ export const idolsData = [
     quote: "Vencer não é o mais importante. O mais importante é ser digno da vitória.",
     color: "#1a3a1a",
     initials: "DR",
-    badge: "Democracia Corinthiana"
+    badge: "Democracia Corinthiana",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Socrates%20(futebolista)%20participando%20do%20movimento%20pol%C3%ADtico%20Diretas%20J%C3%A1.jpg"
   },
   {
     name: "Marcelinho Carioca",
@@ -37,7 +39,8 @@ export const idolsData = [
     quote: "O Corinthians é minha vida. Aqui eu nasci para o futebol.",
     color: "#1a1a2e",
     initials: "MC",
-    badge: "Ídolo da Fiel"
+    badge: "Ídolo da Fiel",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Marcelinho%20Carioca.JPG"
   },
   {
     name: "Ronaldo Fenômeno",
@@ -49,7 +52,8 @@ export const idolsData = [
     quote: "Escolhi o Corinthians porque queria ganhar. E ganhamos.",
     color: "#1f1a00",
     initials: "R9",
-    badge: "O Fenômeno"
+    badge: "O Fenômeno",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Ronaldo2009Corinthians.jpg"
   },
   {
     name: "Cássio",
@@ -61,7 +65,8 @@ export const idolsData = [
     quote: "Esse clube me deu tudo. Dei minha vida por essa camisa.",
     color: "#1a0a0a",
     initials: "CA",
-    badge: "Maior Goleiro da História"
+    badge: "Maior Goleiro da História",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Cassio-Corinthians-jul-2022.jpg"
   },
   {
     name: "Paolo Guerrero",
@@ -73,7 +78,8 @@ export const idolsData = [
     quote: "No Corinthians aprendi o que é ser campeão de verdade.",
     color: "#1a0d00",
     initials: "PG",
-    badge: "Herói da Libertadores"
+    badge: "Herói da Libertadores",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Paolo%20Guerrero%20with%20Corinthians%20celebrate%20FIFA%20Club%20World%20Cup%20win%20%28cropped%29.jpg"
   },
   {
     name: "Rivellino",
@@ -85,7 +91,8 @@ export const idolsData = [
     quote: "O Corinthians é o maior clube do mundo. E eu tive a honra de jogar aqui.",
     color: "#0a1a2a",
     initials: "RI",
-    badge: "Gênio do Futebol"
+    badge: "Gênio do Futebol",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Rivellino%201970.jpg"
   },
   {
     name: "Wladimir",
@@ -97,7 +104,8 @@ export const idolsData = [
     quote: "Democracia Corinthiana foi a experiência mais bonita que vivi no esporte.",
     color: "#001a1a",
     initials: "WL",
-    badge: "Recordista de Jogos"
+    badge: "Recordista de Jogos",
+    photo: "https://static.gazetaesportiva.com/uploads/imagem/2021/06/01/Wladimir.jpeg"
   },
   {
     name: "Jadson",
@@ -109,6 +117,7 @@ export const idolsData = [
     quote: "A Fiel me deu amor que não recebi em nenhum outro lugar.",
     color: "#1a1500",
     initials: "JD",
-    badge: "Maestro do Timão"
+    badge: "Maestro do Timão",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/JadsonRodriguesCorinthians.png"
   }
 ];

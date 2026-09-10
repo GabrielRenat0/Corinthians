@@ -19,7 +19,8 @@ export const cruzeirIdolsData = [
     color: "#003DA5",
     accent: "#FFFFFF",
     initials: "TO",
-    badge: "Maior Ídolo da História"
+    badge: "Maior Ídolo da História",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Tost%C3%A3o%20(Eduardo%20Gon%C3%A7alves%20de%20Andrade,%201970).jpg"
   },
   {
     name: "Dirceu Lopes",
@@ -32,7 +33,8 @@ export const cruzeirIdolsData = [
     color: "#002080",
     accent: "#FFFFFF",
     initials: "DL",
-    badge: "O Príncipe"
+    badge: "O Príncipe",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Dirceu%20Lopes%20M%C3%A9xico%2070.png"
   },
   {
     name: "Fábio",
@@ -45,7 +47,8 @@ export const cruzeirIdolsData = [
     color: "#001560",
     accent: "#FFFFFF",
     initials: "FA",
-    badge: "Maior Goleiro da História"
+    badge: "Maior Goleiro da História",
+    photo: "https://conteudo.imguol.com.br/c/esporte/27/2020/01/16/goleiro-fabio-em-treinamento-do-cruzeiro-na-toca-da-raposa-1579199903172_v2_1600x1067.jpg"
   },
   {
     name: "Ronaldo Fenômeno",
@@ -58,7 +61,8 @@ export const cruzeirIdolsData = [
     color: "#1a2a5e",
     accent: "#FFFFFF",
     initials: "R9",
-    badge: "O Fenômeno"
+    badge: "O Fenômeno",
+    photo: "https://lncimg.lance.com.br/wp-content-galerias/uploads/2020/06/Ronaldo-Cruzeiro-compressed.jpg"
   },
   {
     name: "Alex",
@@ -71,7 +75,8 @@ export const cruzeirIdolsData = [
     color: "#0a1a4a",
     accent: "#FFFFFF",
     initials: "AL",
-    badge: "Maestro da Tríplice Coroa"
+    badge: "Maestro da Tríplice Coroa",
+    photo: "https://conteudo.imguol.com.br/c/esporte/72/2018/01/11/alex-do-cruzeiro-comemora-gol-marcado-contra-o-fluminense-no-brasileiro-de-2003-vencido-pelo-clube-mineiro-1515706770630_v2_1920x1619.jpg"
   },
   {
     name: "Piazza",
@@ -84,7 +89,8 @@ export const cruzeirIdolsData = [
     color: "#0d2b6b",
     accent: "#FFFFFF",
     initials: "PI",
-    badge: "Campeão do Mundo 1970"
+    badge: "Campeão do Mundo 1970",
+    photo: "https://commons.wikimedia.org/wiki/Special:FilePath/Wilson%20Piazza.jpg"
   },
   {
     name: "Sorín",
@@ -97,7 +103,8 @@ export const cruzeirIdolsData = [
     color: "#152d6e",
     accent: "#FFFFFF",
     initials: "SO",
-    badge: "Herói da Tríplice Coroa"
+    badge: "Herói da Tríplice Coroa",
+    photo: "https://www.diarioceleste.com.br/wp-content/uploads/2024/04/juan-pablo-sorin-idolo-do-cruzeiro-780x470.jpg.webp"
   },
   {
     name: "Marcelo Ramos",
@@ -110,7 +117,8 @@ export const cruzeirIdolsData = [
     color: "#0c2060",
     accent: "#FFFFFF",
     initials: "MR",
-    badge: "Herói da Libertadores 1997"
+    badge: "Herói da Libertadores 1997",
+    photo: "https://s2.glbimg.com/fthD2cUrWUDp4kmUOeGTsHiYSm4%3D/340x229%3A1846x1080/690x390/s.glbimg.com/es/ge/f/original/2016/04/29/dsc080341.jpg"
   }
 ];
 
